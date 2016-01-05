@@ -84,6 +84,12 @@ Window {
 
                     onClicked: {
                         console.log("ola k tal?");
+                        controller.addPoint(100,100);
+                        controller.addPoint(200,100);
+                        controller.addPoint(300,300);
+                        controller.addPoint(89,250);
+                        controller.addPoint(350,300);
+                        controller.addPoint(200,400);
                         controller.initIncrementalAlgorithm();
                     }
                 }

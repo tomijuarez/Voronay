@@ -5,6 +5,9 @@
 #include <QQuickItem>
 #include <QList>
 #include <QPair>
+#include "delaunay.h"
+#include "triangulo.h"
+#include "voronoi.h"
 
 class DataManager : public QObject {
     Q_OBJECT
@@ -13,28 +16,24 @@ class DataManager : public QObject {
         void drawTriangle(float x1, float y1, float x2, float y2, float x3, float y3);
         void drawLine(float x, float y);
     public slots:
-        void addPoint(float x, float y) {
-            QPair<float, float> point(x,y);
-            this->points.push_back(point);
-        }
+        void addPoint(float x, float y);
 
         void initIncrementalAlgorithm();
-
         void initFortunesAlgorithm();
 
-        void initDelaunay() {
-
-        }
-
-        void initVoronoi() {
-
-        }
-
     private:
-        QList<QPair<float, float>> points;
+        void triangulate();
+        void reset();
+        void drawTriangles(QList<Triangulo *> triangles);
 
-        //void drawTriangles(QList<Triangulo> triangulos);
-        //void drawTesellation(QList<Line> lines);
+        Delaunay delaunay;
+        Voronoi voronoi;
+        Triangulo * externTriangle;
+        QList<QPair<float, float> > points;
+
+        bool cambio;
+
+
 };
 
 #endif // DATAMANAGER_H
