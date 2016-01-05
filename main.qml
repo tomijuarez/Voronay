@@ -5,6 +5,7 @@ import QtQuick.Window 2.2
 import "./resources/js/main.js" as Main;
 
 Window {
+
     /**
      * Definición de longitudes [píxeles].
      */
@@ -12,6 +13,8 @@ Window {
     property int mainWindowWidth: 1000
     property int mainWindowHeight: 600
     property int canvasWrapperWidthSize: 800
+    property int canvasWrapperHeightSize : 600
+    property int canvasHeight : 570
     property int leftMenuWidth: 200
 
     /**
@@ -29,6 +32,7 @@ Window {
 
     width: mainWindowWidth
     height: mainWindowHeight
+
 
     /**
      * Menú lateral izquierdo.
@@ -141,15 +145,113 @@ Window {
 
     Rectangle {
         width: canvasWrapperWidthSize
-        height: parent.height
+        height: canvasWrapperHeightSize
 
         anchors.right: parent.right
 
         border.color: "#CCC"
 
+        Rectangle {
+            id: canvasControls
+            height: 30
+            width: parent.width - 2
+
+            anchors {
+                left: parent.left
+                leftMargin: 2
+            }
+
+            Rectangle {
+
+                width:62
+                height: parent.height - 2
+                anchors {
+                    top: parent.top
+                    topMargin: 1
+                }
+
+                border.color: "#555"
+                radius: 2
+
+                Rectangle {
+                    width: 30
+                    height: parent.height - 4
+                    anchors {
+                        left: parent.left
+                        leftMargin: 2
+                        top: parent.top
+                        topMargin: 2
+                    }
+                    color: "white"
+
+                    Text {
+                        anchors {
+                            horizontalCenter: parent.horizontalCenter
+                            centerIn: parent
+                        }
+
+                        font.pixelSize: 20
+                        color: "#555"
+                        text: "+"
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        id: zoomInButton
+                        onClicked: {
+                            Main.Drawer.zoomIn();
+                            console.log("++++++++++++++++++++++++++++++++++");
+                            controller.initIncrementalAlgorithm();
+                        }
+                    }
+                }
+
+                Rectangle {
+                    height: parent.height
+                    width:1
+                    color: "#555"
+                    anchors {
+                        left: parent.left
+                        leftMargin: 30
+                    }
+                }
+
+                Rectangle {
+                    width: 30
+                    height: parent.height - 4
+                    anchors {
+                        left:parent.left
+                        leftMargin: 31
+                        top: parent.top
+                        topMargin: 2
+                    }
+                    color: "white"
+
+                    Text {
+                        anchors {
+                            horizontalCenter: parent.horizontalCenter
+                            centerIn: parent
+                        }
+
+                        font.pixelSize: 20
+                        color: "#555"
+                        text: "‒"
+                    }
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    id: zoomOutButton
+                    onClicked: {
+                        controller.initIncrementalAlgorithm();
+                    }
+                }
+            }
+        }
+
         Canvas {
             width: parent.width
-            height: parent.height
+            height: canvasHeight
             onPaint: {
                 Main.Drawer.setCanvas(this);
             }
@@ -170,6 +272,15 @@ Window {
         /**
          * Eventos.
          */
+
+        onCleanScene: {
+            console.log("Se limpia la escena");
+            Main.Drawer.clear();
+        }
+
+        onDrawPoint: {
+            Main.Drawer.drawPoint(x,y);
+        }
 
         onDrawTriangle: {
             Main.Drawer.repaint();

@@ -15,6 +15,8 @@ class DataManager : public QObject {
     signals:
         void drawTriangle(float x1, float y1, float x2, float y2, float x3, float y3);
         void drawLine(float x, float y);
+        void drawPoint(float x, float y);
+        void cleanScene();
     public slots:
         void addPoint(float x, float y);
 
