@@ -136,6 +136,41 @@ Window {
                 }
 
             }
+            Rectangle {
+                width: 180
+                height: 40
+                color: flatBlue
+                anchors {
+                    top: parent.top
+                    left: parent.left
+                    topMargin: 150
+                    leftMargin: 10
+                }
+
+                radius: 2
+
+
+                Text {
+                    anchors {
+                        horizontalCenter: parent.horizontalCenter
+                        centerIn: parent
+                    }
+
+                    font.pointSize: 13
+                    text: "Resetear"
+                    color: "white"
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+
+                    onClicked: {
+                        console.log("Reseteando");
+                        controller.reset();
+                    }
+                }
+
+            }
         }
     }
 

@@ -25,13 +25,13 @@ void DataManager::addPoint(float x, float y) {
     this->cambio = true;
 }
 
+void DataManager::reset(){
+    this->delaunay.resetear();
+}
+
 /**
  * Privados
  */
-
-void DataManager::reset() {
-    this->points.clear();
-}
 
 void DataManager::triangulate() {
 

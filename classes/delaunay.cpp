@@ -8,6 +8,7 @@ Delaunay::Delaunay()
 {
     this->trianguloExterior = NULL;
     this->grafoHistorico = NULL;
+    this->calculada = false;
 }
 
 Delaunay::Delaunay(QList<QPair<float, float> > puntos, Triangulo * trianguloExterior) {
@@ -17,6 +18,7 @@ Delaunay::Delaunay(QList<QPair<float, float> > puntos, Triangulo * trianguloExte
     this->puntos = puntos;
     //this->triangulos.append(trianguloInicial);
     this->grafoHistorico = new GrafoHistorico(trianguloExterior);
+    this->calculada = false;
 }
 
 /**
@@ -25,28 +27,43 @@ Delaunay::Delaunay(QList<QPair<float, float> > puntos, Triangulo * trianguloExte
  * @return [TRIANGULACIÓN]
  */
 QList<Triangulo *> Delaunay::triangular(){
-    if(this->trianguloExterior == NULL){
-        qDebug() << " Debe setear el traingulo exterior antes de triangular";
-        QList<Triangulo*> vacia;
-        return vacia;
+    if(!this->calculada){
+        if(this->trianguloExterior == NULL){
+            qDebug() << " Debe setear el triangulo exterior antes de triangular";
+            QList<Triangulo*> vacia;
+            return vacia;
+        }
+        QPair<float, float> p;
+        foreach (p, this->puntos) {
+            qDebug() << "Insertando";
+            qDebug() << p;
+            this->puntosInsertados.append(p);
+            this->insertarVertice(p);
+        }
+        this->calculada = true;
+     }
+        /*
+        Triangulo * t;
+        qDebug() << "Listando Triangulos";
+        foreach(t,this->triangulos){
+            t->contieneArista(par,par);
+            t->getCircunscripta();
+        }
+        */
+      return this->grafoHistorico->listarHojas();
     }
-    QPair<float, float> p;
-    foreach (p, this->puntos) {
-        qDebug() << "Insertando";
-        qDebug() << p;
-        this->puntosInsertados.append(p);
-        this->insertarVertice(p);
+
+    void Delaunay::resetear()
+    {
+        delete this->trianguloExterior;
+        this->trianguloExterior = NULL;
+        this->puntosInsertados.clear();
+        this->puntos.clear();
+        this->grafoHistorico->clear();
+        delete this->grafoHistorico;
+        this->grafoHistorico = NULL;
+        this->calculada = false;
     }
-    /*
-    Triangulo * t;
-    qDebug() << "Listando Triangulos";
-    foreach(t,this->triangulos){
-        t->contieneArista(par,par);
-        t->getCircunscripta();
-    }
-    */
-    return this->grafoHistorico->listarHojas();
-}
 
 
 void Delaunay::insertarVertice(QPair<float, float> vertice) {
@@ -464,15 +481,15 @@ void Delaunay::legalizarLado(QPair<float, float> puntoNuevo, QPair<float, float>
            qDebug() << "El lado pertenece al traingulo exterior Legal!";
        }
 }
-Triangulo *Delaunay::getTrianguloExterior() const
-{
+Triangulo *Delaunay::getTrianguloExterior() const{
     return this->trianguloExterior;
 }
 
-void Delaunay::setTrianguloExterior(Triangulo *value)
-{
-    this->trianguloExterior = value;
-    this->grafoHistorico = new GrafoHistorico(value);
+void Delaunay::setTrianguloExterior(Triangulo *value){
+   if(!calculada){
+        this->trianguloExterior = value;
+        this->grafoHistorico = new GrafoHistorico(value);
+   }else{qDebug() << "Debe resetear la triangulacion antes de cambiar el triangulo exterior";}
 }
 
 QList<QPair<float, float> > Delaunay::getPuntos() const
@@ -480,9 +497,10 @@ QList<QPair<float, float> > Delaunay::getPuntos() const
     return this->puntos;
 }
 
-void Delaunay::setPuntos(const QList<QPair<float, float> > &value)
-{
-    this->puntos = value;
+void Delaunay::setPuntos(const QList<QPair<float, float> > &value){
+    if(!calculada){
+        this->puntos = value;
+    }else{qDebug() << "Debe resetear la triangulacion antes de cambiar el triangulo exterior";}
 }
 
 
@@ -500,7 +518,6 @@ void Delaunay::setPuntos(const QList<QPair<float, float> > &value)
 //}
 
 Delaunay::~Delaunay() {
-    this->triangulos.clear();
-    this->triangulos.clear();
+    this->resetear();
 }
 

@@ -13,7 +13,7 @@ public:
     Delaunay(QList<QPair<float, float> > puntos, Triangulo *trianguloExterior);
     ~Delaunay();
     QList<Triangulo*> triangular();
-
+    void resetear();
     QList<QPair<float, float> > getPuntos() const;
     void setPuntos(const QList<QPair<float, float> > &value);
 
@@ -36,10 +36,11 @@ private:
      * Estructuras.
      */
     GrafoHistorico * grafoHistorico;
-    QList<Triangulo*> triangulos;
     QList<QPair<float,float> > puntos;
     QList<QPair<float, float> > puntosInsertados;
     Triangulo * trianguloExterior;
+
+    bool calculada;
 };
 
 #endif // DELAUNAY_H
