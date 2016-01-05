@@ -90,6 +90,13 @@ QList<Triangulo*> GrafoHistorico::listarHojas(){
     this->listaHojas.clear();
     qDebug() << " Listando Grafo";
     this->listar(this->raiz);
+    QList<NodoGrafo *> nodos;
+    NodoGrafo * nodo;
+    foreach(nodo,nodos){
+        nodo->setProcesado(false);
+    }
+    qDebug() << "La triangulacion tiene:";
+    qDebug() << this->listaHojas.count();
     return this->listaHojas;
 }
 
@@ -114,9 +121,10 @@ void GrafoHistorico::listar(NodoGrafo *nodo){
         if(!nodo->getProcesado()){
             nodo->setProcesado(true);
             this->listaHojas.append(nodo->getTriangulo());
+            nodo->getTriangulo()->imprimir();
         }else{
 //            qDebug() << "Ya fue procesado antes";
-            nodo->setProcesado(false);
+            //nodo->setProcesado(false);
         }
     }
 }
