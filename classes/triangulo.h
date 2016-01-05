@@ -18,11 +18,11 @@ public:
     QList<QPair<QPair<float, float>, QPair<float, float> > > getAristas();
     QList<QPair<float, float> > getVertices();
     Circunscripta * getCircunscripta();
+    bool contienePunto(QPair<float, float> punto);
     void imprimir();
     ~Triangulo();
 private:
     float area(QPair<float, float> punto1, QPair<float, float> punto2, QPair<float, float> punto3);
-    bool contienePunto(QPair<float, float> punto);
     QPair<float, float> punto1;
     QPair<float, float> punto2;
     QPair<float, float> punto3;

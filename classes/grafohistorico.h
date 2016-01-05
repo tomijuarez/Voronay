@@ -24,6 +24,9 @@ private:
     NodoGrafo * raiz;
     NodoGrafo * primero;
     NodoGrafo * segundo;
+    QPair<float,float> p1;
+    QPair<float,float> p2;
+    QPair<float,float> p3;
 };
 
 #endif // GRAFOHISTORICO_H
