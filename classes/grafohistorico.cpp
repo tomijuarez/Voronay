@@ -95,10 +95,16 @@ NodoGrafo *GrafoHistorico::busquedaSelectiva(QPair<float, float> punto, NodoGraf
 }
 
 void GrafoHistorico::clear(){
-    if(this->raiz != NULL){
-        this->limpiar(this->raiz);
-    }
+    this->procesados.clear();
     this->listaHojas.clear();
+    this->limpiar(this->raiz);
+    QList<NodoGrafo*> eliminar = this->procesados;
+    NodoGrafo * nodo;
+    foreach(nodo,eliminar){
+        nodo->clear();
+        delete nodo;
+    }
+    qDebug()<<"Break2";
     this->procesados.clear();
 }
 
@@ -106,11 +112,11 @@ void GrafoHistorico::limpiar(NodoGrafo * nodo){
     if(!nodo->getProcesado()){
         nodo->setProcesado(true);
         QList<NodoGrafo *> nodos = nodo->getHijos();
-        NodoGrafo * nodo;
-        foreach(nodo,nodos){
+        NodoGrafo * nodoAux;
+        this->procesados.append(nodo);
+        foreach(nodoAux,nodos){
                this->limpiar(nodo);
         }
-        delete nodo;
     }
 }
 

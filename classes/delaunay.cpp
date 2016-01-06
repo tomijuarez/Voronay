@@ -11,15 +11,6 @@ Delaunay::Delaunay()
     this->calculada = false;
 }
 
-Delaunay::Delaunay(QList<QPair<float, float> > puntos, Triangulo * trianguloExterior) {
-    QList<QPair<float, float> > puntosIniciales = trianguloExterior->getVertices();
-    //Evitamos que se puede modificar el traingulo inicial desde "afuera"
-    this->trianguloExterior = new Triangulo(puntosIniciales.at(0),puntosIniciales.at(1),puntosIniciales.at(2));
-    this->puntos = puntos;
-    this->grafoHistorico = new GrafoHistorico(trianguloExterior);
-    this->calculada = false;
-}
-
 /**
  * @brief Delaunay::triangular
  * @param puntos [NUBE DE PUNTOS]
@@ -40,20 +31,20 @@ QList<Triangulo *> Delaunay::triangular(){
             this->insertarVertice(p);
         }
         this->calculada = true;
-     }
+     }else{qDebug() << "Ya se encuentra triangulada";}
       return this->grafoHistorico->listarHojas();
     }
 
-    void Delaunay::resetear()
-    {
-        delete this->trianguloExterior;
+ void Delaunay::resetear(){
+      if(this->trianguloExterior != NULL){
         this->trianguloExterior = NULL;
-        this->puntosInsertados.clear();
-        this->puntos.clear();
         this->grafoHistorico->clear();
         delete this->grafoHistorico;
         this->grafoHistorico = NULL;
         this->calculada = false;
+       }
+      this->puntosInsertados.clear();
+      this->puntos.clear();
     }
 
 
@@ -295,8 +286,9 @@ Triangulo *Delaunay::getTrianguloExterior() const{
 
 void Delaunay::setTrianguloExterior(Triangulo *value){
    if(!calculada){
-        this->trianguloExterior = value;
-        this->grafoHistorico = new GrafoHistorico(value);
+        QList<QPair<float,float> > vertices = value->getVertices();
+        this->trianguloExterior = new Triangulo(vertices.at(0),vertices.at(1),vertices.at(2));
+        this->grafoHistorico = new GrafoHistorico(this->trianguloExterior);
    }else{qDebug() << "Debe resetear la triangulacion antes de cambiar el triangulo exterior";}
 }
 

@@ -37,6 +37,7 @@ void DataManager::triangulate() {
 
         this->delaunay.setTrianguloExterior(this->externTriangle);
         this->delaunay.setPuntos(this->points);
+        this->points.clear();
         this->drawTriangles(this->delaunay.triangular());
 
     this->cambio = false;
