@@ -46,7 +46,7 @@ Window {
 
         Rectangle {
             width: parent.width
-            height: 150
+            height: 200
             anchors.top: parent.top
 
             Rectangle {
@@ -79,7 +79,7 @@ Window {
                     }
 
                     font.pointSize: 13
-                    text: "Algoritmo incremental"
+                    text: "Algoritaso incremental"
                     color: "white"
                 }
 
@@ -136,6 +136,7 @@ Window {
                 }
 
             }
+
             Rectangle {
                 width: 180
                 height: 40
@@ -143,7 +144,7 @@ Window {
                 anchors {
                     top: parent.top
                     left: parent.left
-                    topMargin: 150
+                    topMargin: 200
                     leftMargin: 10
                 }
 
