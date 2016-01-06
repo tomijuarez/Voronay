@@ -20,6 +20,10 @@ public:
     Triangulo *getTrianguloExterior() const;
     void setTrianguloExterior(Triangulo *value);
 
+    //Para utilizar con Voronoi
+    //(Muy complejo crear copia del objeto, no utilizar funcion resetear() desde fuera
+    GrafoHistorico *getGrafoHistorico() const;
+
 private:
     void insertarVertice(QPair<float, float> punto);
     void generarTriangulos(NodoGrafo * nodo, QPair<float, float> vertice );

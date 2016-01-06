@@ -280,12 +280,17 @@ void Delaunay::legalizarLado(QPair<float, float> puntoNuevo, QPair<float, float>
            qDebug() << "El lado pertenece al traingulo exterior Legal!";
        }
 }
+GrafoHistorico *Delaunay::getGrafoHistorico() const
+{
+    return grafoHistorico;
+}
+
 Triangulo *Delaunay::getTrianguloExterior() const{
     return this->trianguloExterior;
 }
 
 void Delaunay::setTrianguloExterior(Triangulo *value){
-   if(!calculada){
+    if(!calculada){
         QList<QPair<float,float> > vertices = value->getVertices();
         this->trianguloExterior = new Triangulo(vertices.at(0),vertices.at(1),vertices.at(2));
         this->grafoHistorico = new GrafoHistorico(this->trianguloExterior);

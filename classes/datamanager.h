@@ -25,6 +25,7 @@ class DataManager : public QObject {
 
     private:
         void triangulate();
+        void tesel();
         void drawTriangles(QList<Triangulo *> triangles);
 
         Delaunay delaunay;
