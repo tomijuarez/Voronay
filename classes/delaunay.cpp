@@ -23,7 +23,7 @@ QList<Triangulo *> Delaunay::triangular(){
             QList<Triangulo*> vacia;
             return vacia;
         }
-        QPair<float, float> p;
+        QPair<double, double> p;
         foreach (p, this->puntos) {
             qDebug() << "Insertando";
             qDebug() << p;
@@ -48,7 +48,7 @@ QList<Triangulo *> Delaunay::triangular(){
     }
 
 
-void Delaunay::insertarVertice(QPair<float, float> vertice) {
+void Delaunay::insertarVertice(QPair<double, double> vertice) {
         //Utilizamos el grafo historico para encontrar el/los triangulos en los que cae el punto
         NodoGrafo * nAux1 = NULL;
         NodoGrafo * nAux2 = NULL;
@@ -89,12 +89,12 @@ void Delaunay::insertarVertice(QPair<float, float> vertice) {
  * @return
  */
 
-void Delaunay::generarTriangulos( NodoGrafo * nodo, QPair<float, float> vertice ) {
+void Delaunay::generarTriangulos( NodoGrafo * nodo, QPair<double, double> vertice ) {
     qDebug() << "El punto cayo en";
     nodo->getTriangulo()->imprimir();
     qDebug() << "Generando 3 triangulos";
     //Partimos el triangulo en 3 usando el nuevo vertice
-    QList<QPair<float,float> > vertices = nodo->getTriangulo()->getVertices();
+    QList<QPair<double,double> > vertices = nodo->getTriangulo()->getVertices();
     Triangulo * t1 = new Triangulo(vertices.at(0),vertices.at(1),vertice);
     Triangulo * t2 = new Triangulo(vertices.at(0),vertices.at(2),vertice);
     Triangulo * t3 = new Triangulo(vertices.at(1),vertices.at(2),vertice);
@@ -136,19 +136,19 @@ void Delaunay::generarTriangulos( NodoGrafo * nodo, QPair<float, float> vertice 
  */
 
 
-void Delaunay::dividirTriangulos( NodoGrafo * nodo1, NodoGrafo * nodo2, QPair<float, float> vertice){
+void Delaunay::dividirTriangulos( NodoGrafo * nodo1, NodoGrafo * nodo2, QPair<double, double> vertice){
     qDebug() << "El punto cayo entre";
     nodo1->getTriangulo()->imprimir();
     nodo2->getTriangulo()->imprimir();
     qDebug() << "Dividiendo Triangulos en 2";
 
     //Ubicamos los 2 vertices que comparten los triangulos
-    QPair<float,float> verticeCompartido1;
-    QPair<float,float> verticeCompartido2;
-    QPair<float,float> vertAux;
-    QList<QPair<float,float> > verticesT1 = nodo1->getTriangulo()->getVertices();
-    QList<QPair<float,float> > verticesT2 = nodo2->getTriangulo()->getVertices();
-    QList<QPair<float,float> > vertices;
+    QPair<double,double> verticeCompartido1;
+    QPair<double,double> verticeCompartido2;
+    QPair<double,double> vertAux;
+    QList<QPair<double,double> > verticesT1 = nodo1->getTriangulo()->getVertices();
+    QList<QPair<double,double> > verticesT2 = nodo2->getTriangulo()->getVertices();
+    QList<QPair<double,double> > vertices;
     vertices.append(verticesT1);
     vertices.append(verticesT2);
     int encontrados = 0;
@@ -167,8 +167,8 @@ void Delaunay::dividirTriangulos( NodoGrafo * nodo1, NodoGrafo * nodo2, QPair<fl
     }
 
     //Ubicamos el vertice que no comparte un triangulo con el otro para cada triangulo
-    QPair<float,float> verticeDistinto1;
-    QPair<float,float> verticeDistinto2;
+    QPair<double,double> verticeDistinto1;
+    QPair<double,double> verticeDistinto2;
 
     foreach(vertAux,verticesT1){
         if (vertAux != verticeCompartido1 && vertAux != verticeCompartido2){
@@ -214,23 +214,32 @@ void Delaunay::dividirTriangulos( NodoGrafo * nodo1, NodoGrafo * nodo2, QPair<fl
     return;
 }
 
-float Delaunay::determinante(QPair<float, float> punto1, QPair<float, float> punto2, QPair<float, float> punto3){
+double Delaunay::determinante(QPair<double, double> punto1, QPair<double, double> punto2, QPair<double, double> punto3){
     return (  punto1.first * ( punto2.second - punto3.second )
             + punto2.first * ( punto3.second - punto1.second )
             + punto3.first * ( punto1.second - punto2.second )
             );
 }
 
-void Delaunay::legalizarLado(QPair<float, float> puntoNuevo, QPair<float, float> vertice1, QPair<float, float> vertice2, NodoGrafo * nodo){
+void Delaunay::legalizarLado(QPair<double, double> puntoNuevo, QPair<double, double> vertice1, QPair<double, double> vertice2, NodoGrafo * nodo){
     //Verificamos que el lado en cuestion no pertenece al triangulo exterior
        qDebug() << "Legalizando";
        nodo->getTriangulo()->imprimir();
+       qDebug() << "Arista";
+       qDebug() << vertice1;
+       qDebug() << vertice2;
        if(!this->trianguloExterior->contieneArista(vertice1,vertice2)){
         //Encontramos el Triangulo adyacente en el history graph
         //para esto utilizamos el punto medio del lado compartido
         //solo dos triangulo comparten este punto, el triangulo en cuestion y su adyacente
-        QPair<float, float> puntoMedio((vertice1.first+vertice2.first)/2,(vertice1.second+vertice2.second)/2);
+        double p1 = (vertice1.first+vertice2.first)/2.0;
+        double p2 = (vertice1.second+vertice2.second)/2.0;
+        QPair<double, double> puntoMedio(p1,p2);
         NodoGrafo * adyacente = this->grafoHistorico->busquedaSelectiva(puntoMedio,nodo);
+        if(!nodo->getTriangulo()->tieneDentro(puntoMedio)){
+            qDebug() << "ERROR double GOING WRONG";
+        }
+        this->grafoHistorico->encontrarContienePunto(puntoMedio);
         if (adyacente == NULL){
             qDebug() << "adyacente no encontrado";
         }else{
@@ -238,9 +247,9 @@ void Delaunay::legalizarLado(QPair<float, float> puntoNuevo, QPair<float, float>
             adyacente->getTriangulo()->imprimir();
             //encontramos el adyacente, ahora ubicamos el vertice que no comparten para verificar que no caiga
             //dentro de la circunferencia circunscripta
-                   QList<QPair<float,float> > verticesAdyacente = adyacente->getTriangulo()->getVertices();
-                   QPair<float,float> vertAux;
-                   QPair<float,float> verticeDistintoAdyacente;
+                   QList<QPair<double,double> > verticesAdyacente = adyacente->getTriangulo()->getVertices();
+                   QPair<double,double> vertAux;
+                   QPair<double,double> verticeDistintoAdyacente;
 
                    foreach(vertAux,verticesAdyacente){
                        if (vertAux != vertice1 && vertAux != vertice2){
@@ -291,18 +300,18 @@ Triangulo *Delaunay::getTrianguloExterior() const{
 
 void Delaunay::setTrianguloExterior(Triangulo *value){
     if(!calculada){
-        QList<QPair<float,float> > vertices = value->getVertices();
+        QList<QPair<double,double> > vertices = value->getVertices();
         this->trianguloExterior = new Triangulo(vertices.at(0),vertices.at(1),vertices.at(2));
         this->grafoHistorico = new GrafoHistorico(this->trianguloExterior);
    }else{qDebug() << "Debe resetear la triangulacion antes de cambiar el triangulo exterior";}
 }
 
-QList<QPair<float, float> > Delaunay::getPuntos() const
+QList<QPair<double, double> > Delaunay::getPuntos() const
 {
     return this->puntos;
 }
 
-void Delaunay::setPuntos(const QList<QPair<float, float> > &value){
+void Delaunay::setPuntos(const QList<QPair<double, double> > &value){
     if(!calculada){
         this->puntos = value;
     }else{qDebug() << "Debe resetear la triangulacion antes de cambiar el triangulo exterior";}

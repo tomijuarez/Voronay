@@ -5,6 +5,9 @@ import QtQuick.Window 2.2
 import "./resources/js/main.js" as Main;
 
 Window {
+    id: window1
+
+    property bool sameScene: false
 
     /**
      * Definición de longitudes [píxeles].
@@ -46,7 +49,7 @@ Window {
 
         Rectangle {
             width: parent.width
-            height: 200
+            height: 150
             anchors.top: parent.top
 
             Rectangle {
@@ -79,7 +82,7 @@ Window {
                     }
 
                     font.pointSize: 13
-                    text: "Algoritaso incremental"
+                    text: "Algoritmo incremental"
                     color: "white"
                 }
 
@@ -87,13 +90,9 @@ Window {
                     anchors.fill: parent
 
                     onClicked: {
-                        console.log("ola k tal?");
-                        controller.addPoint(100,100);
-                        controller.addPoint(200,100);
-                        controller.addPoint(300,300);
-                        controller.addPoint(89,250);
-                        controller.addPoint(350,300);
-                        controller.addPoint(200,400);
+//                        controller.addPoint(202,244);
+//                        controller.addPoint(285,144);
+//                        controller.addPoint(420,218);
                         controller.initIncrementalAlgorithm();
                     }
                 }
@@ -134,7 +133,6 @@ Window {
                         controller.initFortunesAlgorithm();
                     }
                 }
-
             }
 
             Rectangle {
@@ -180,12 +178,132 @@ Window {
      */
 
     Rectangle {
+        id: rectangle1
         width: canvasWrapperWidthSize
         height: canvasWrapperHeightSize
+        color: "#cccccc"
+        anchors.verticalCenter: parent.verticalCenter
 
         anchors.right: parent.right
 
         border.color: "#CCC"
+
+        Rectangle {
+            height:90
+            width:90
+            anchors {
+                right: parent.right
+                top: parent.top
+                rightMargin: 10
+                topMargin: 10
+            }
+
+            color: "transparent"
+
+            Rectangle {
+                height: 30
+                width: 30
+                radius: 3
+                border.color: "#CCC"
+                color: "white"
+                anchors {
+                    top: parent.top
+                    left: parent.left
+                    leftMargin: 30
+                }
+                Text {
+                    anchors.centerIn: parent
+                    color: "#CCC"
+                    font.pixelSize: 17
+                    text: "▲"
+                }
+                MouseArea {
+                    anchors.fill:parent
+                    onClicked: {
+                        Main.Drawer.down();
+                        controller.initIncrementalAlgorithm();
+                    }
+                }
+            }
+
+            Rectangle {
+                height: 30
+                width: 30
+                radius: 3
+                border.color: "#CCC"
+                color: "white"
+                anchors {
+                    top: parent.top
+                    left: parent.left
+                    topMargin: 30
+                }
+                Text {
+                    anchors.centerIn: parent
+                    color: "#CCC"
+                    font.pixelSize: 17
+                    text: "◄"
+                }
+                MouseArea {
+                    anchors.fill:parent
+                    onClicked: {
+                        Main.Drawer.right();
+                        controller.initIncrementalAlgorithm();
+                    }
+                }
+            }
+
+            Rectangle {
+                height: 30
+                width: 30
+                radius: 3
+                border.color: "#CCC"
+                color: "white"
+                anchors {
+                    top: parent.top
+                    right: parent.right
+                    topMargin: 30
+                }
+                Text {
+                    anchors.centerIn: parent
+                    color: "#CCC"
+                    font.pixelSize: 17
+                    text: "►"
+                }
+                MouseArea {
+                    anchors.fill:parent
+                    onClicked: {
+                        Main.Drawer.left();
+                        controller.initIncrementalAlgorithm();
+                    }
+                }
+            }
+
+            Rectangle {
+                height: 30
+                width: 30
+                radius: 3
+                border.color: "#CCC"
+                color: "white"
+                anchors {
+                    bottom: parent.bottom
+                    left: parent.left
+                    leftMargin: 30
+                }
+                Text {
+                    anchors.centerIn: parent
+                    color: "#CCC"
+                    font.pixelSize: 17
+                    text: "▼"
+                }
+                MouseArea {
+                    anchors.fill:parent
+                    onClicked: {
+                        Main.Drawer.up();
+                        controller.initIncrementalAlgorithm();
+                    }
+                }
+            }
+        }
 
         Rectangle {
             id: canvasControls
@@ -197,99 +315,124 @@ Window {
                 leftMargin: 2
             }
 
-            Rectangle {
+            Row {
+                id: row1
+                x: 0
+                y: 1
+                width: 200
+                height: 28
+                anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
 
-                width:62
-                height: parent.height - 2
-                anchors {
-                    top: parent.top
-                    topMargin: 1
+                Row {
+                    id: zoomControls
+                    width: 65
+                    height: 28
+
+                    Rectangle {
+                        id: zoomInButton
+                        x: 2
+                        width: 30
+                        height: 28
+                        color: "#de2121"
+                        clip: false
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                Main.Drawer.zoomIn();
+                                controller.initIncrementalAlgorithm();
+                            }
+                        }
+                    }
+
+                    Rectangle {
+                        id: rectangle4
+                        x: 32
+                        width: 1
+                        height: 28
+                        color: "#0056ad"
+                    }
+
+                    Rectangle {
+                        id: zoomOutButton
+                        x: 33
+                        width: 30
+                        height: 28
+                        color: "#c55cfa"
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                Main.Drawer.zoomOut();
+                                controller.initIncrementalAlgorithm();
+                            }
+                        }
+                    }
                 }
 
-                border.color: "#555"
-                radius: 2
-
                 Rectangle {
-                    width: 30
-                    height: parent.height - 4
+                    width: 200
+                    height: 28
                     anchors {
                         left: parent.left
-                        leftMargin: 2
                         top: parent.top
-                        topMargin: 2
+                        leftMargin: 70
                     }
-                    color: "white"
-
+                    radius: 3
+                    color: flatBlue
                     Text {
-                        anchors {
-                            horizontalCenter: parent.horizontalCenter
-                            centerIn: parent
-                        }
-
-                        font.pixelSize: 20
-                        color: "#555"
-                        text: "+"
+                        anchors.centerIn: parent
+                        text: "Agregar nuevos puntos"
+                        font.pixelSize: 17
+                        color: "white"
                     }
 
                     MouseArea {
                         anchors.fill: parent
-                        id: zoomInButton
                         onClicked: {
-                            Main.Drawer.zoomIn();
-                            console.log("++++++++++++++++++++++++++++++++++");
-                            controller.initIncrementalAlgorithm();
+                            controller.clear();
+                            Main.Drawer.clear();
+                            sameScene = false;
                         }
-                    }
-                }
-
-                Rectangle {
-                    height: parent.height
-                    width:1
-                    color: "#555"
-                    anchors {
-                        left: parent.left
-                        leftMargin: 30
-                    }
-                }
-
-                Rectangle {
-                    width: 30
-                    height: parent.height - 4
-                    anchors {
-                        left:parent.left
-                        leftMargin: 31
-                        top: parent.top
-                        topMargin: 2
-                    }
-                    color: "white"
-
-                    Text {
-                        anchors {
-                            horizontalCenter: parent.horizontalCenter
-                            centerIn: parent
-                        }
-
-                        font.pixelSize: 20
-                        color: "#555"
-                        text: "‒"
-                    }
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    id: zoomOutButton
-                    onClicked: {
-                        controller.initIncrementalAlgorithm();
                     }
                 }
             }
         }
 
         Canvas {
-            width: parent.width
+            id: canvas1
+            x: 0
+            y: 30
+            width: canvasWrapperWidthSize
             height: canvasHeight
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.topMargin: 30
+
+
+            /**
+             * Render properties.
+             */
+
+            contextType: "2d";
+            renderStrategy: Canvas.Threaded;
+            renderTarget: Canvas.Image;
+            antialiasing: true;
+            smooth: true;
+
             onPaint: {
                 Main.Drawer.setCanvas(this);
+            }
+
+            MouseArea {
+                anchors.fill: parent;
+                onClicked: {
+                    Main.Drawer.repaint();
+                    var x = mouseX, y = mouseY;
+                    Main.Drawer.drawPoint(x-1,y-1);
+                    controller.addPoint(x-1,y-1);
+                }
             }
         }
     }
@@ -310,18 +453,18 @@ Window {
          */
 
         onCleanScene: {
-            console.log("Se limpia la escena");
             Main.Drawer.clear();
         }
 
         onDrawPoint: {
+            Main.Drawer.repaint();
             Main.Drawer.drawPoint(x,y);
         }
 
         onDrawTriangle: {
+            console.log("TRIANGULITOOO-");
             Main.Drawer.repaint();
             Main.Drawer.drawTriangle(x1,y1,x2,y2,x3,y3);
         }
     }
 }
-

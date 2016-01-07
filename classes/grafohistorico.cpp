@@ -9,14 +9,16 @@ GrafoHistorico::GrafoHistorico(Triangulo * t){
     this->raiz = new NodoGrafo(t);
     this->primero = NULL;
     this->segundo = NULL;
-    QList<QPair<float,float> > vertices = t->getVertices();
+    QList<QPair<double,double> > vertices = t->getVertices();
     this->p1 = vertices.at(0);
     this->p2 = vertices.at(1);
     this->p3 = vertices.at(2);
 
 }
 
-bool GrafoHistorico::encontrarContienePunto(QPair<float, float> punto){
+bool GrafoHistorico::encontrarContienePunto(QPair<double, double> punto){
+    this->primero = NULL;
+    this->segundo = NULL;
     bool encontrado = false;
     this->encontrar(this->raiz,punto,encontrado);
     if(!encontrado){
@@ -25,7 +27,7 @@ bool GrafoHistorico::encontrarContienePunto(QPair<float, float> punto){
     return encontrado;
 }
 
-void GrafoHistorico::encontrar(NodoGrafo *nodo, QPair<float, float> punto,bool & encontrado){
+void GrafoHistorico::encontrar(NodoGrafo *nodo, QPair<double, double> punto,bool & encontrado){
     if(nodo->getHijos().count() != 0){ //no es una hoja
         QList<NodoGrafo*> hijos = nodo->getHijos();
         NodoGrafo * hijo;
@@ -56,7 +58,7 @@ void GrafoHistorico::encontrar(NodoGrafo *nodo, QPair<float, float> punto,bool &
                 }
             }
             else{//no esta en un lado, se encontro el triangulo ( finaliza la busqueda)
-                qDebug() << "Se encontro el tringulo";
+                qDebug() << "Se encontro el triangulo";
                 this->primero =nodo;
                 encontrado = true;
                 return;
@@ -79,15 +81,17 @@ NodoGrafo * GrafoHistorico::getSegundo()
     return aux;
 }
 
-NodoGrafo *GrafoHistorico::busquedaSelectiva(QPair<float, float> punto, NodoGrafo *nodo){
+NodoGrafo *GrafoHistorico::busquedaSelectiva(QPair<double, double> punto, NodoGrafo *nodo){
+    this->primero = NULL;
+    this->segundo = NULL;
     bool useless = false;
     this->encontrar(this->raiz,punto,useless);
     NodoGrafo * n1 = this->getPrimero();
     NodoGrafo * n2 = this->getSegundo();
-    if(n1 != nodo){
+    if(n1 != nodo && n1 != NULL){
         return n1;
     }
-    if(n2 != nodo){
+    if(n2 != nodo && n2 != NULL){
         return n2;
     }
     qDebug() << "busqueda selectiva fallo";

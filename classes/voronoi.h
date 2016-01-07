@@ -11,7 +11,7 @@ class Voronoi
 public:
     Voronoi();
     ~Voronoi();
-    QList<QPair<float,float> > calcular(GrafoHistorico * grafoDelaunay);
+    QList<QPair<double,double> > calcular(GrafoHistorico * grafoDelaunay);
 };
 
 #endif // VORONOI_H

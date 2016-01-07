@@ -10,22 +10,22 @@ class Triangulo
 {
 public:
     Triangulo();
-    Triangulo(QPair<float, float> punto1, QPair<float, float> punto2, QPair<float, float> punto3);
-    void definirPuntos(QPair<float, float> punto1, QPair<float, float> punto2, QPair<float, float> punto3);
-    bool tieneDentro(QPair<float, float> punto);
-    bool estaEnUnLado(QPair<float, float> punto);
-    bool contieneArista(QPair<float, float> punto1,QPair<float, float> punto2);
-    QList<QPair<QPair<float, float>, QPair<float, float> > > getAristas();
-    QList<QPair<float, float> > getVertices();
+    Triangulo(QPair<double, double> punto1, QPair<double, double> punto2, QPair<double, double> punto3);
+    void definirPuntos(QPair<double, double> punto1, QPair<double, double> punto2, QPair<double, double> punto3);
+    bool tieneDentro(QPair<double, double> punto);
+    bool estaEnUnLado(QPair<double, double> punto);
+    bool contieneArista(QPair<double, double> punto1,QPair<double, double> punto2);
+    QList<QPair<QPair<double, double>, QPair<double, double> > > getAristas();
+    QList<QPair<double, double> > getVertices();
     Circunscripta * getCircunscripta();
-    bool contienePunto(QPair<float, float> punto);
+    bool contienePunto(QPair<double, double> punto);
     void imprimir();
     ~Triangulo();
 private:
-    float area(QPair<float, float> punto1, QPair<float, float> punto2, QPair<float, float> punto3);
-    QPair<float, float> punto1;
-    QPair<float, float> punto2;
-    QPair<float, float> punto3;
+    double area(QPair<double, double> punto1, QPair<double, double> punto2, QPair<double, double> punto3);
+    QPair<double, double> punto1;
+    QPair<double, double> punto2;
+    QPair<double, double> punto3;
 };
 
 #endif // TRIANGULO_H

@@ -1,13 +1,10 @@
 #include "datamanager.h"
-#include "delaunay.h"
-#include "grafohistorico.h"
-#include "voronoi.h"
 #include <QDebug>
 
 void DataManager::initIncrementalAlgorithm() {
-    QPair<float, float> punto1(0,10000);
-    QPair<float, float> punto2(10000,-10000);
-    QPair<float, float> punto3(-10000,-10000);
+    QPair<double, double> punto1(0,9000);
+    QPair<double, double> punto2(1000,-1000);
+    QPair<double, double> punto3(-1000,-1000);
     Triangulo triangulo(punto1,punto2,punto3);
     this->externTriangle = &(triangulo);
     this->triangulate();
@@ -17,48 +14,66 @@ void DataManager::initFortunesAlgorithm() {
     this->tesel();
 }
 
-void DataManager::addPoint(float x, float y) {
-    QPair<float, float> punto(x,y);
-    this->points.push_back(punto);
+void DataManager::tesel(){
+    GrafoHistorico * grafoDelaunay = this->delaunay.getGrafoHistorico();
+    QList<QPair<double,double> > aristasVoronoi = this->voronoi.calcular(grafoDelaunay);
+    QPair<double,double> arista;
+    foreach(arista,aristasVoronoi){
+        this->drawLine(arista.first,arista.second);
+    }
+}
+
+void DataManager::clear() {
+    this->triangulation.clear();
+    this->points.clear();
     this->cambio = true;
 }
 
-void DataManager::reset(){
-    this->delaunay.resetear();
+void DataManager::addPoint(double x, double y) {
+    QPair<double, double> punto(x,y);
+    this->points.push_back(punto);
+    this->cambio = true;
 }
 
 /**
  * Privados
  */
 
-void DataManager::triangulate() {
+void DataManager::reset(){
+   // this->points.clear();
+    this->delaunay.resetear();
+}
 
+void DataManager::triangulate() {
+    if (this->cambio) {
         this->delaunay.setTrianguloExterior(this->externTriangle);
         this->delaunay.setPuntos(this->points);
-        this->points.clear();
-        this->drawTriangles(this->delaunay.triangular());
+        this->triangulation = this->delaunay.triangular();
+    }
+
+    qDebug() << " *------------------------* Hay " << this->points.size();
+
+    this->drawTriangles();
+    this->drawPoints();
 
     this->cambio = false;
 }
 
-void DataManager::tesel(){
-    GrafoHistorico * grafoDelaunay = this->delaunay.getGrafoHistorico();
-    QList<QPair<float,float> > aristasVoronoi = this->voronoi.calcular(grafoDelaunay);
-    QPair<float,float> arista;
-    foreach(arista,aristasVoronoi){
-        this->drawLine(arista.first,arista.second);
+void DataManager::drawPoints() {
+    QPair<double, double> point;
+    foreach(point, this->points) {
+        this->drawPoint(point.first, point.second);
     }
 }
 
-void DataManager::drawTriangles(QList<Triangulo *> triangulos) {
+void DataManager::drawTriangles() {
     this->cleanScene();
-    foreach(Triangulo * triangulo, triangulos) {
-        QList<QPair<float, float>> vertices = triangulo->getVertices();
-        QPair<float,float> vertice1 = vertices.at(0);
-        QPair<float,float> vertice2 = vertices.at(1);
-        QPair<float,float> vertice3 = vertices.at(2);
+    foreach(Triangulo * triangle, this->triangulation) {
+        QList<QPair<double, double>> vertices = triangle->getVertices();
+        QPair<double,double> vertice1 = vertices.at(0);
+        QPair<double,double> vertice2 = vertices.at(1);
+        QPair<double,double> vertice3 = vertices.at(2);
         this->drawTriangle(vertice1.first, vertice1.second, vertice2.first, vertice2.second, vertice3.first, vertice3.second);
-        qDebug() << "Sale triangulo.";
     }
 }
 

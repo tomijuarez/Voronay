@@ -2,11 +2,11 @@
 #include <math.h>
 #include <QDebug>
 /*
-Circunscripta::Circunscripta(QPair<float, float> punto1, QPair<float, float> punto2, QPair<float, float> punto3) {
-    float bc = (pow(punto1.first, 2) + pow(punto1.first, 2) - pow(punto2.first, 2) + pow(punto2.second, 2))/2.0;
-    float cd = (pow(punto2.first, 2) + pow(punto2.first, 2) - pow(punto3.first, 2) + pow(punto3.second, 2))/2.0;
+Circunscripta::Circunscripta(QPair<double, double> punto1, QPair<double, double> punto2, QPair<double, double> punto3) {
+    double bc = (pow(punto1.first, 2) + pow(punto1.first, 2) - pow(punto2.first, 2) + pow(punto2.second, 2))/2.0;
+    double cd = (pow(punto2.first, 2) + pow(punto2.first, 2) - pow(punto3.first, 2) + pow(punto3.second, 2))/2.0;
 
-    float det = (punto1.first - punto2.first)*(punto2.second - punto3.second)-(punto2.first - punto3.first)*(punto1.second - punto2.second);
+    double det = (punto1.first - punto2.first)*(punto2.second - punto3.second)-(punto2.first - punto3.first)*(punto1.second - punto2.second);
 
     if (abs(det) < 1.0e-6) {
         this->centro.first = this->centro.second = 1.0;
@@ -22,7 +22,7 @@ Circunscripta::Circunscripta(QPair<float, float> punto1, QPair<float, float> pun
 }
 */
 
-Circunscripta::Circunscripta(QPair<float, float> punto1, QPair<float, float> punto2, QPair<float, float> punto3) {
+Circunscripta::Circunscripta(QPair<double, double> punto1, QPair<double, double> punto2, QPair<double, double> punto3) {
       //qDebug() << "Calculando Circuncentro";
       //qDebug() <<"Punto1";
       //qDebug() << punto1;
@@ -31,9 +31,9 @@ Circunscripta::Circunscripta(QPair<float, float> punto1, QPair<float, float> pun
       //qDebug() << "Punto3";
       //qDebug() << punto3;
 
-      QPair<float,float> medio12 = this->medio(punto1, punto2);
-      QPair<float,float> medio13 = this->medio(punto1, punto3);
-      QPair<float,float> medio23 = this->medio(punto2, punto3);
+      QPair<double,double> medio12 = this->medio(punto1, punto2);
+      QPair<double,double> medio13 = this->medio(punto1, punto3);
+      QPair<double,double> medio23 = this->medio(punto2, punto3);
 
 
       //qDebug() << "Medio12";
@@ -43,9 +43,9 @@ Circunscripta::Circunscripta(QPair<float, float> punto1, QPair<float, float> pun
       //qDebug() << "Medio23";
       //qDebug() << medio23;
 
-      float pendienteM12 = this->pendienteMediatriz(punto1,punto2);
-      float pendienteM13 = this->pendienteMediatriz(punto1,punto3);
-      float pendienteM23 = this->pendienteMediatriz(punto2,punto3);
+      double pendienteM12 = this->pendienteMediatriz(punto1,punto2);
+      double pendienteM13 = this->pendienteMediatriz(punto1,punto3);
+      double pendienteM23 = this->pendienteMediatriz(punto2,punto3);
 
 
       //qDebug() << "Pendiente M12";
@@ -55,9 +55,9 @@ Circunscripta::Circunscripta(QPair<float, float> punto1, QPair<float, float> pun
       //qDebug() << "Pendiente M23";
       //qDebug() << pendienteM23;
 
-      float b12 = -(medio12.first * pendienteM12) + medio12.second;
-      float b13 = -(medio13.first * pendienteM13) + medio13.second;
-      float b23 = -(medio23.first * pendienteM23) + medio23.second;
+      double b12 = -(medio12.first * pendienteM12) + medio12.second;
+      double b13 = -(medio13.first * pendienteM13) + medio13.second;
+      double b23 = -(medio23.first * pendienteM23) + medio23.second;
 
       //qDebug() << "B12";
       //qDebug() << b12;
@@ -80,7 +80,7 @@ Circunscripta::Circunscripta(QPair<float, float> punto1, QPair<float, float> pun
           return;
       }
 
-      float radio = sqrt(pow(centro.first-punto1.first,2)+pow(centro.second-punto1.second,2));
+      double radio = sqrt(pow(centro.first-punto1.first,2)+pow(centro.second-punto1.second,2));
       this->radio = radio;
 
       //qDebug() << "Circuncentro";
@@ -93,16 +93,16 @@ Circunscripta::Circunscripta(QPair<float, float> punto1, QPair<float, float> pun
 
 Circunscripta::~Circunscripta() { }
 
-QPair<float, float> Circunscripta::getCentro() const {
+QPair<double, double> Circunscripta::getCentro() const {
     return this->centro;
 }
 
-float Circunscripta::getRadio() const {
+double Circunscripta::getRadio() const {
     return this->radio;
 }
 
-float Circunscripta::pendienteMediatriz(QPair<float,float> punto1, QPair<float,float> punto2){
-    float resultado = 0.0;
+double Circunscripta::pendienteMediatriz(QPair<double,double> punto1, QPair<double,double> punto2){
+    double resultado = 0.0;
 
     if((punto2.first != punto1.first) && (punto2.second != punto1.second)){
       resultado = -(1/((punto2.second - punto1.second)/(punto2.first-punto1.first)));
@@ -111,17 +111,17 @@ float Circunscripta::pendienteMediatriz(QPair<float,float> punto1, QPair<float,f
     return resultado;
 }
 
-QPair<float,float> Circunscripta::medio(QPair<float,float> punto1, QPair<float,float> punto2){
-    QPair<float,float> resultado;
+QPair<double,double> Circunscripta::medio(QPair<double,double> punto1, QPair<double,double> punto2){
+    QPair<double,double> resultado;
     resultado.first = (punto1.first+punto2.first)/2.0;
     resultado.second = (punto1.second+punto2.second)/2.0;
     return resultado;
 }
 
-QPair<float,float> Circunscripta::interseccion(float m1, float m2, float b1, float b2){
-    float x;
-    float y;
-    QPair<float,float> resultado;
+QPair<double,double> Circunscripta::interseccion(double m1, double m2, double b1, double b2){
+    double x;
+    double y;
+    QPair<double,double> resultado;
 
     x = (b2-b1)/(m1-m2);
     y = (m1 * x) + b1;
@@ -131,6 +131,6 @@ QPair<float,float> Circunscripta::interseccion(float m1, float m2, float b1, flo
     return resultado;
 }
 
-bool Circunscripta::estaDentro(QPair<float, float> punto) const {
-    return ( (pow (punto.first - this->centro.first, 2) + pow (punto.second - this->centro.second, 2)) <= pow(this->radio,2));
+bool Circunscripta::estaDentro(QPair<double, double> punto) const {
+    return ( (pow (punto.first - this->centro.first, 2) + pow (punto.second - this->centro.second, 2)) < pow(this->radio,2));
 }
