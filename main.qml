@@ -46,7 +46,7 @@ Window {
 
         Rectangle {
             width: parent.width
-            height: 150
+            height: 200
             anchors.top: parent.top
 
             Rectangle {
@@ -79,7 +79,7 @@ Window {
                     }
 
                     font.pointSize: 13
-                    text: "Algoritmo incremental"
+                    text: "Algoritaso incremental"
                     color: "white"
                 }
 
@@ -132,6 +132,42 @@ Window {
                     onClicked: {
                         console.log("ola k tal?");
                         controller.initFortunesAlgorithm();
+                    }
+                }
+
+            }
+
+            Rectangle {
+                width: 180
+                height: 40
+                color: flatBlue
+                anchors {
+                    top: parent.top
+                    left: parent.left
+                    topMargin: 200
+                    leftMargin: 10
+                }
+
+                radius: 2
+
+
+                Text {
+                    anchors {
+                        horizontalCenter: parent.horizontalCenter
+                        centerIn: parent
+                    }
+
+                    font.pointSize: 13
+                    text: "Resetear"
+                    color: "white"
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+
+                    onClicked: {
+                        console.log("Reseteando");
+                        controller.reset();
                     }
                 }
 

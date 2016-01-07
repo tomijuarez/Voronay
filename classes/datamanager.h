@@ -19,20 +19,20 @@ class DataManager : public QObject {
         void cleanScene();
     public slots:
         void addPoint(float x, float y);
-
+        void reset();
         void initIncrementalAlgorithm();
         void initFortunesAlgorithm();
 
     private:
         void triangulate();
-        void reset();
+        void tesel();
         void drawTriangles(QList<Triangulo *> triangles);
 
         Delaunay delaunay;
         Voronoi voronoi;
         Triangulo * externTriangle;
         QList<QPair<float, float> > points;
-
+        bool calculada;
         bool cambio;
 
 

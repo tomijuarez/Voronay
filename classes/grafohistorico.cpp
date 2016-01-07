@@ -94,11 +94,37 @@ NodoGrafo *GrafoHistorico::busquedaSelectiva(QPair<float, float> punto, NodoGraf
     return NULL;
 }
 
+void GrafoHistorico::clear(){
+    this->procesados.clear();
+    this->listaHojas.clear();
+    this->limpiar(this->raiz);
+    QList<NodoGrafo*> eliminar = this->procesados;
+    NodoGrafo * nodo;
+    foreach(nodo,eliminar){
+        nodo->clear();
+        delete nodo;
+    }
+    qDebug()<<"Break2";
+    this->procesados.clear();
+}
+
+void GrafoHistorico::limpiar(NodoGrafo * nodo){
+    if(!nodo->getProcesado()){
+        nodo->setProcesado(true);
+        QList<NodoGrafo *> nodos = nodo->getHijos();
+        NodoGrafo * nodoAux;
+        this->procesados.append(nodo);
+        foreach(nodoAux,nodos){
+               this->limpiar(nodo);
+        }
+    }
+}
+
 QList<Triangulo*> GrafoHistorico::listarHojas(){
     this->listaHojas.clear();
     qDebug() << " Listando Grafo";
     this->listar(this->raiz);
-    QList<NodoGrafo *> nodos;
+    QList<NodoGrafo *> nodos = this->procesados;
     NodoGrafo * nodo;
     foreach(nodo,nodos){
         nodo->setProcesado(false);
@@ -131,6 +157,7 @@ void GrafoHistorico::listar(NodoGrafo *nodo){
             && !nodo->getTriangulo()->contienePunto(this->p2)
             && !nodo->getTriangulo()->contienePunto(this->p3)){
                 nodo->setProcesado(true);
+                this->procesados.append(nodo);
                 this->listaHojas.append(nodo->getTriangulo());
                 nodo->getTriangulo()->imprimir();
             }else

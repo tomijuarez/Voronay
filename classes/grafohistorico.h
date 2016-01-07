@@ -15,12 +15,15 @@ public:
     NodoGrafo * getPrimero();
     NodoGrafo * getSegundo();
     NodoGrafo * busquedaSelectiva(QPair<float,float> punto, NodoGrafo * nodo);
+    void clear();
     QList<Triangulo*> listarHojas();
 
 private:
     void encontrar(NodoGrafo * nodo, QPair<float,float> punto, bool &encontrado);
     void listar(NodoGrafo * nodo);
+    void limpiar(NodoGrafo * nodo);
     QList<Triangulo*> listaHojas;
+    QList<NodoGrafo*> procesados;
     NodoGrafo * raiz;
     NodoGrafo * primero;
     NodoGrafo * segundo;

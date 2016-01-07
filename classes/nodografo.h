@@ -13,6 +13,7 @@ public:
     void agregarHijo(NodoGrafo * n);
     bool getProcesado() const;
     void setProcesado(bool value);
+    void clear();
     ~NodoGrafo();
 private:
     Triangulo * triangulo;

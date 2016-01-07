@@ -18,14 +18,16 @@ void NodoGrafo::agregarHijo(NodoGrafo * n){
     this->hijos.append(n);
 }
 
-bool NodoGrafo::getProcesado() const
-{
+bool NodoGrafo::getProcesado() const{
     return procesado;
 }
 
-void NodoGrafo::setProcesado(bool value)
-{
+void NodoGrafo::setProcesado(bool value){
     procesado = value;
+}
+
+void NodoGrafo::clear(){
+    delete this->triangulo;
 }
 
 NodoGrafo::~NodoGrafo(){
