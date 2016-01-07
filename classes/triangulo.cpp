@@ -3,18 +3,18 @@
 
 Triangulo::Triangulo() { }
 
-Triangulo::Triangulo(QPair<float, float> punto1, QPair<float, float> punto2, QPair<float, float> punto3){
+Triangulo::Triangulo(QPair<double, double> punto1, QPair<double, double> punto2, QPair<double, double> punto3){
     this->definirPuntos(punto1, punto2, punto3);
 }
 
-void Triangulo::definirPuntos(QPair<float, float> punto1, QPair<float, float> punto2, QPair<float, float> punto3) {
+void Triangulo::definirPuntos(QPair<double, double> punto1, QPair<double, double> punto2, QPair<double, double> punto3) {
     this->punto1 = punto1;
     this->punto2 = punto2;
     this->punto3 = punto3;
 }
 
-float Triangulo::area(QPair<float, float> punto1, QPair<float, float> punto2, QPair<float, float> punto3) {
-    return abs(
+double Triangulo::area(QPair<double, double> punto1, QPair<double, double> punto2, QPair<double, double> punto3) {
+    return fabsf(
         (
                 punto1.first * ( punto2.second - punto3.second )
             +   punto2.first * ( punto3.second - punto1.second )
@@ -23,48 +23,50 @@ float Triangulo::area(QPair<float, float> punto1, QPair<float, float> punto2, QP
     );
 }
 
-bool Triangulo::tieneDentro(QPair<float, float> punto) {
-    float A = this->area(this->punto1, this->punto2, this->punto3);
-    float A1 = this->area(punto, this->punto2, this->punto3);
-    float A2 = this->area(this->punto1, punto, this->punto3);
-    float A3 = this->area(this->punto1, this->punto2, punto);
+bool Triangulo::tieneDentro(QPair<double, double> punto) {
+    double A = this->area(this->punto1, this->punto2, this->punto3);
+    double A1 = this->area(punto, this->punto2, this->punto3);
+    double A2 = this->area(this->punto1, punto, this->punto3);
+    double A3 = this->area(this->punto1, this->punto2, punto);
 
-    return (A == (A1 + A2 + A3));
-
+    if(A == (A1 + A2 + A3)){
+        return true;
+    }
+    return false;
 }
 
-bool Triangulo::estaEnUnLado(QPair<float, float> punto) {
-    float A1 = this->area(punto, this->punto2, this->punto3);
-    float A2 = this->area(this->punto1, punto, this->punto3);
-    float A3 = this->area(this->punto1, this->punto2, punto);
+bool Triangulo::estaEnUnLado(QPair<double, double> punto) {
+    double A1 = this->area(punto, this->punto2, this->punto3);
+    double A2 = this->area(this->punto1, punto, this->punto3);
+    double A3 = this->area(this->punto1, this->punto2, punto);
 
     return (A1 == 0 || A2 == 0 || A3 == 0);
 }
 
-bool Triangulo::contieneArista(QPair<float, float> punto1, QPair<float, float> punto2){
+bool Triangulo::contieneArista(QPair<double, double> punto1, QPair<double, double> punto2){
     return (this->contienePunto(punto1) && this->contienePunto(punto2));
 }
 
-bool Triangulo::contienePunto(QPair<float, float> punto){
+bool Triangulo::contienePunto(QPair<double, double> punto){
     bool resultado = ((punto.first == this->punto1.first && punto.second == this->punto1.second)
             || (punto.first == this->punto2.first && punto.second == this->punto2.second)
             || (punto.first == this->punto3.first && punto.second == this->punto3.second));
     return resultado;
 }
 
-QList<QPair<float,float> > Triangulo::getVertices(){
-    QList<QPair<float, float> > resultado;
+QList<QPair<double,double> > Triangulo::getVertices(){
+    QList<QPair<double, double> > resultado;
     resultado.append(this->punto1);
     resultado.append(this->punto2);
     resultado.append(this->punto3);
     return resultado;
 }
 
-QList<QPair<QPair<float,float>,QPair<float,float> > > Triangulo::getAristas(){
-    QList<QPair<QPair<float,float>,QPair<float,float> > > resultado;
-    QPair<QPair<float,float>,QPair<float,float> > arista1(this->punto1,this->punto2);
-    QPair<QPair<float,float>,QPair<float,float> > arista2(this->punto1,this->punto3);
-    QPair<QPair<float,float>,QPair<float,float> > arista3(this->punto2,this->punto3);
+QList<QPair<QPair<double,double>,QPair<double,double> > > Triangulo::getAristas(){
+    QList<QPair<QPair<double,double>,QPair<double,double> > > resultado;
+    QPair<QPair<double,double>,QPair<double,double> > arista1(this->punto1,this->punto2);
+    QPair<QPair<double,double>,QPair<double,double> > arista2(this->punto1,this->punto3);
+    QPair<QPair<double,double>,QPair<double,double> > arista3(this->punto2,this->punto3);
     resultado.append(arista1);
     resultado.append(arista2);
     resultado.append(arista3);

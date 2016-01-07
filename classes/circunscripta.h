@@ -10,18 +10,18 @@ public:
     /**
      * Genera la circunferencia circunscripta del triángulo.
      */
-    Circunscripta(QPair<float, float> punto1, QPair<float, float> punto2, QPair<float, float> punto3);
+    Circunscripta(QPair<double, double> punto1, QPair<double, double> punto2, QPair<double, double> punto3);
     ~Circunscripta();
-    QPair<float, float> getCentro() const;
-    float getRadio() const;
-    bool estaDentro(QPair<float, float> punto) const;
+    QPair<double, double> getCentro() const;
+    double getRadio() const;
+    bool estaDentro(QPair<double, double> punto) const;
 
 private:
-    float pendienteMediatriz(QPair<float,float> punto1, QPair<float,float> punto2);
-    QPair<float,float> medio(QPair<float,float> punto1, QPair<float,float> punto2);
-    QPair<float,float> interseccion(float m1, float m2, float b1, float b2);
-    float radio;
-    QPair<float, float> centro;
+    double pendienteMediatriz(QPair<double,double> punto1, QPair<double,double> punto2);
+    QPair<double,double> medio(QPair<double,double> punto1, QPair<double,double> punto2);
+    QPair<double,double> interseccion(double m1, double m2, double b1, double b2);
+    double radio;
+    QPair<double, double> centro;
 };
 
 #endif // CIRCUNSCRIPTA_H

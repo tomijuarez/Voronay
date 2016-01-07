@@ -5,8 +5,8 @@ Voronoi::Voronoi()
 
 }
 
-QList<QPair<float,float> > Voronoi::calcular(GrafoHistorico *grafoDelaunay){
-    QList<QPair<float,float> > a;
+QList<QPair<double,double> > Voronoi::calcular(GrafoHistorico *grafoDelaunay){
+    QList<QPair<double,double> > a;
     return a;
 }
 

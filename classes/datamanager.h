@@ -13,12 +13,13 @@ class DataManager : public QObject {
     Q_OBJECT
 
     signals:
-        void drawTriangle(float x1, float y1, float x2, float y2, float x3, float y3);
-        void drawLine(float x, float y);
-        void drawPoint(float x, float y);
+        void drawTriangle(double x1, double y1, double x2, double y2, double x3, double y3);
+        void drawLine(double x, double y);
+        void drawPoint(double x, double y);
         void cleanScene();
     public slots:
-        void addPoint(float x, float y);
+        void addPoint(double x, double y);
+        void clear();
         void reset();
         void initIncrementalAlgorithm();
         void initFortunesAlgorithm();
@@ -26,16 +27,16 @@ class DataManager : public QObject {
     private:
         void triangulate();
         void tesel();
-        void drawTriangles(QList<Triangulo *> triangles);
+        void drawTriangles();
+        void drawPoints();
 
         Delaunay delaunay;
         Voronoi voronoi;
         Triangulo * externTriangle;
-        QList<QPair<float, float> > points;
-        bool calculada;
+        QList<QPair<double, double> > points;
+        QList<Triangulo *> triangulation;
+
         bool cambio;
-
-
 };
 
 #endif // DATAMANAGER_H

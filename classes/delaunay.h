@@ -10,12 +10,12 @@
 class Delaunay {
 public:
     Delaunay();
-    Delaunay(QList<QPair<float, float> > puntos, Triangulo *trianguloExterior);
+    Delaunay(QList<QPair<double, double> > puntos, Triangulo *trianguloExterior);
     ~Delaunay();
     QList<Triangulo*> triangular();
     void resetear();
-    QList<QPair<float, float> > getPuntos() const;
-    void setPuntos(const QList<QPair<float, float> > &value);
+    QList<QPair<double, double> > getPuntos() const;
+    void setPuntos(const QList<QPair<double, double> > &value);
 
     Triangulo *getTrianguloExterior() const;
     void setTrianguloExterior(Triangulo *value);
@@ -25,19 +25,19 @@ public:
     GrafoHistorico *getGrafoHistorico() const;
 
 private:
-    void insertarVertice(QPair<float, float> punto);
-    void generarTriangulos(NodoGrafo * nodo, QPair<float, float> vertice );
-    bool esLegal(QPair<float, float> punto1, QPair<float, float> punto2) const;
-    void dividirTriangulos( NodoGrafo * nodo1, NodoGrafo * nodo2, QPair<float, float> vertice);
-    float determinante(QPair<float, float> punto1, QPair<float, float> punto2,QPair<float, float> punto3);
-    void legalizarLado(QPair<float, float> puntoNuevo, QPair<float, float> vertice1, QPair<float, float> vertice2, NodoGrafo * nodo);
+    void insertarVertice(QPair<double, double> punto);
+    void generarTriangulos(NodoGrafo * nodo, QPair<double, double> vertice );
+    bool esLegal(QPair<double, double> punto1, QPair<double, double> punto2) const;
+    void dividirTriangulos( NodoGrafo * nodo1, NodoGrafo * nodo2, QPair<double, double> vertice);
+    double determinante(QPair<double, double> punto1, QPair<double, double> punto2,QPair<double, double> punto3);
+    void legalizarLado(QPair<double, double> puntoNuevo, QPair<double, double> vertice1, QPair<double, double> vertice2, NodoGrafo * nodo);
 
     /**
      * Estructuras.
      */
     GrafoHistorico * grafoHistorico;
-    QList<QPair<float,float> > puntos;
-    QList<QPair<float, float> > puntosInsertados;
+    QList<QPair<double,double> > puntos;
+    QList<QPair<double, double> > puntosInsertados;
     Triangulo * trianguloExterior;
 
     bool calculada;

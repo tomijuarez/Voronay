@@ -7,11 +7,11 @@ SOURCES += main.cpp \
     classes/datamanager.cpp \
     classes/circunscripta.cpp \
     classes/delaunay.cpp \
-    classes/grafohistorico.cpp \
-    classes/linea.cpp \
-    classes/nodografo.cpp \
     classes/triangulo.cpp \
-    classes/voronoi.cpp
+    classes/voronoi.cpp \
+    classes/grafohistorico.cpp \
+    classes/nodografo.cpp
+
 
 RESOURCES += qml.qrc
 
@@ -25,9 +25,8 @@ HEADERS += \
     classes/datamanager.h \
     classes/circunscripta.h \
     classes/delaunay.h \
-    classes/grafohistorico.h \
-    classes/linea.h \
-    classes/nodografo.h \
     classes/triangulo.h \
-    classes/voronoi.h
+    classes/voronoi.h \
+    classes/grafohistorico.h \
+    classes/nodografo.h
 
