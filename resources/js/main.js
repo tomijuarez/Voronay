@@ -1,8 +1,18 @@
 function Drawer() {};
 
-Drawer.prototype.zoomFactor = 0.1;
-Drawer.prototype.zoom = 1;
+Drawer.prototype.zoomFactor = 0.5;
+Drawer.prototype.zoomTransformFactor = 1;
 Drawer.prototype.translateFactor = 10;
+
+Drawer.prototype.translateNumber = function(number){
+    var result = (number/this.zoomTransformFactor);
+    return result;
+};
+
+Drawer.prototype.translateNumberInv = function(number){
+    var result = (number*this.zoomTransformFactor);
+    return result;
+};
 
 Drawer.prototype.setCanvas = function(canvas) {
     this.canvas = canvas;
@@ -87,18 +97,12 @@ Drawer.prototype.drawPoint = function(x,y) {
 
 Drawer.prototype.zoomIn = function() {
     var context = this.getContext();
-    this.zoom = this.zoom + this.zoomFactor;
-
-    this.clear();
-    context.scale(this.zoom, this.zoom);
+    this.zoomTransformFactor = this.zoomTransformFactor - this.zoomFactor;
 }
 
 Drawer.prototype.zoomOut = function() {
     var context = this.getContext();
-    this.zoom = this.zoom - this.zoomFactor;
-
-    this.clear();
-    context.scale(this.zoom, this.zoom);
+    this.zoomTransformFactor = this.zoomTransformFactor + this.zoomFactor;
 }
 
 Drawer.prototype.up = function() {
