@@ -419,7 +419,7 @@ Window {
 
         onDrawCircle: {
             Main.Drawer.repaint();
-            Main.Drawer.drawLine(x,y,r);
+            Main.Drawer.drawCircle(x,y,radius);
         }
     }
 }
