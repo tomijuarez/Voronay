@@ -51,6 +51,19 @@ Drawer.prototype.drawCircle = function(x,y,r) {
     context.stroke();
 }
 
+Drawer.prototype.drawPaintedCircle = function(x,y,r) {
+    var context = this.getContext();
+    context.beginPath();
+    context.arc(x, y, r, 0, 2 * Math.PI);
+    context.closePath();
+
+    context.fillStyle="#794044";
+    context.fill();
+
+    context.strokeStyle = "#00B16A";
+    context.stroke();
+}
+
 Drawer.prototype.drawLine = function(x1,y1,x2,y2) {
     var context = this.getContext();
 

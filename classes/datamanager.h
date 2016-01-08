@@ -18,6 +18,7 @@ class DataManager : public QObject {
         void drawLine(double x1, double y1, double x2, double y2);
         void drawPoint(double x, double y);
         void drawCircle(double x, double y, double radius);
+        void drawPaintedCircle(double x, double y, double radius);
         void cleanScene();
     public slots:
         void addPoint(double x, double y);

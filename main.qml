@@ -421,5 +421,10 @@ Window {
             Main.Drawer.repaint();
             Main.Drawer.drawCircle(x,y,radius);
         }
+
+        onDrawPaintedCircle: {
+            Main.Drawer.repaint();
+            Main.Drawer.drawCircle(x,y,radius);
+        }
     }
 }
