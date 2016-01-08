@@ -2,9 +2,9 @@
 #include <QDebug>
 
 void DataManager::initIncrementalAlgorithm() {
-    QPair<double, double> punto1(0,9000);
-    QPair<double, double> punto2(1000,-1000);
-    QPair<double, double> punto3(-1000,-1000);
+    QPair<double, double> punto1(0,7000);
+    QPair<double, double> punto2(7000,-7000);
+    QPair<double, double> punto3(-7000,-7000);
     Triangulo triangulo(punto1,punto2,punto3);
     this->externTriangle = &(triangulo);
     this->calculada = true;
