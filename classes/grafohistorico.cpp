@@ -23,7 +23,7 @@ bool GrafoHistorico::encontrarContienePunto(QPair<double, double> punto){
     this->encontrar(this->raiz,punto,encontrado);
     this->flagYaPertenece = false;
     if(!encontrado){
-        qDebug() << "no se encontro triangulo";
+        qDebug() << "Grafo historico: ContienePunto fallo";
     }
     return encontrado;
 }
@@ -33,7 +33,7 @@ void GrafoHistorico::encontrar(NodoGrafo *nodo, QPair<double, double> punto,bool
         return;
     }
     if(nodo->getTriangulo()->contienePunto(punto)){
-        qDebug() << "El punto ya se encuentra en la traingulacion";
+        qDebug() << "Grafo historico: El punto ya se encuentra en la traingulacion";
         this->flagYaPertenece = true;
         return;
     }
@@ -55,19 +55,19 @@ void GrafoHistorico::encontrar(NodoGrafo *nodo, QPair<double, double> punto,bool
         if(nodo->getTriangulo()->tieneDentro(punto)){
             if(nodo->getTriangulo()->estaEnUnLado(punto)){//esta en un lado (continua la busqueda por el otro triangulo)
                 if(this->primero == NULL){
-                    qDebug() << "Esta en un lado, se encontro el primero";
+                    //qDebug() << "Esta en un lado, se encontro el primero";
                     this->primero = nodo;
                     return;
                 }
                 else{
-                    qDebug() << "Se encontro el segundo";
+                    //qDebug() << "Se encontro el segundo";
                     this->segundo = nodo;
                     encontrado = true;
                     return;
                 }
             }
             else{//no esta en un lado, se encontro el triangulo ( finaliza la busqueda)
-                qDebug() << "Se encontro el triangulo";
+                //qDebug() << "Se encontro el triangulo";
                 this->primero =nodo;
                 encontrado = true;
                 return;
@@ -104,7 +104,7 @@ NodoGrafo *GrafoHistorico::busquedaSelectiva(QPair<double, double> punto, NodoGr
     if(n2 != nodo && n2 != NULL){
         return n2;
     }
-    qDebug() << "busqueda selectiva fallo";
+    qDebug() << "Grafo historico: BusquedaSelectiva fallo";
     return NULL;
 }
 
@@ -140,15 +140,15 @@ void GrafoHistorico::limpiar(NodoGrafo * nodo){
 QList<Triangulo*> GrafoHistorico::listarHojas(){
     if(!this->calculado){
         this->listaHojas.clear();
-        qDebug() << " Listando Grafo";
+        //qDebug() << " Listando Grafo";
         this->listar(this->raiz);
         QList<NodoGrafo *> nodos = this->procesados;
         NodoGrafo * nodo;
         foreach(nodo,nodos){
             nodo->setProcesado(false);
         }
-        qDebug() << "La triangulacion tiene:";
-        qDebug() << this->listaHojas.count();
+        //qDebug() << "La triangulacion tiene:";
+        //qDebug() << this->listaHojas.count();
         this->calculado = true;
      }
      return this->listaHojas;
@@ -180,10 +180,11 @@ void GrafoHistorico::listar(NodoGrafo *nodo){
                 this->procesados.append(nodo);
                 this->listaHojas.append(nodo->getTriangulo());
                 nodo->getTriangulo()->imprimir();
-            }else
-                qDebug() << "El triangulo contiene un vertice del triangulo exterior";
+            }else{
+                //qDebug() << "Grafo Historico: El triangulo contiene un vertice del triangulo exterior";
+            }
         }else{
-//            qDebug() << "Ya fue procesado antes";
+             //qDebug() << "Grafo Historico: Ya fue procesado antes";
             //nodo->setProcesado(false);
         }
     }
