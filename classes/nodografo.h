@@ -1,9 +1,9 @@
 #ifndef NODOGRAFO_H
 #define NODOGRAFO_H
 
-#include "triangulo.h"
 #include <QList>
 #include <QDebug>
+#include "triangulo.h"
 
 class NodoGrafo
 {

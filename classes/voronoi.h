@@ -5,8 +5,6 @@
 #include <QPair>
 #include "triangulo.h"
 #include "grafohistorico.h"
-#include <QList>
-#include <QMap>
 #include "triangulo.h"
 #include "arista.h"
 #include "circunscripta.h"

@@ -1,9 +1,9 @@
 #include "grafohistorico.h"
-#include "triangulo.h"
-#include "nodografo.h"
 #include <QList>
 #include <QPair>
 #include <QDebug>
+#include "triangulo.h"
+#include "nodografo.h"
 
 GrafoHistorico::GrafoHistorico(Triangulo * t){
     this->raiz = new NodoGrafo(t);

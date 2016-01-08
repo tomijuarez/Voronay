@@ -8,6 +8,7 @@
 #include "delaunay.h"
 #include "triangulo.h"
 #include "voronoi.h"
+#include "circunscripta.h"
 
 class DataManager : public QObject {
     Q_OBJECT

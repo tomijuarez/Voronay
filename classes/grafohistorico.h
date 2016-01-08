@@ -1,10 +1,10 @@
 #ifndef GRAFOHISTORICO_H
 #define GRAFOHISTORICO_H
 
-#include "triangulo.h"
-#include "nodografo.h"
 #include <QList>
 #include <QPair>
+#include "triangulo.h"
+#include "nodografo.h"
 
 class GrafoHistorico
 {
