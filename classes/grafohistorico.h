@@ -30,6 +30,7 @@ private:
     QPair<double,double> p1;
     QPair<double,double> p2;
     QPair<double,double> p3;
+    bool flagYaPertenece = false;
 };
 
 #endif // GRAFOHISTORICO_H
