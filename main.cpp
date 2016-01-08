@@ -3,9 +3,9 @@
 #include <QObject>
 #include <QGuiApplication>
 #include <QQuickView>
-#include "classes/datamanager.h"
 #include <QQuickItem>
 #include <QQmlContext>
+#include "classes/datamanager.h"
 
 int main(int argc, char *argv[]) {
 
