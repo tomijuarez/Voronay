@@ -363,8 +363,8 @@ Window {
                 onClicked: {
                     Main.Drawer.repaint();
                     var x = mouseX, y = mouseY;
-                    Main.Drawer.drawPoint(Main.Drawer.translateNumber(x-1),Main.Drawer.translateNumber(y-1));
-                    controller.addPoint(Main.Drawer.translateNumberInv(x-1),Main.Drawer.translateNumberInv(y-1));
+                    Main.Drawer.drawPoint(Main.Drawer.translateHorizontal(x-1),Main.Drawer.translateVertical(y-1));
+                    controller.addPoint(Main.Drawer.translateHorizontalClick(x-1),Main.Drawer.translateVerticalClick(y-1));
                 }
             }
 
@@ -401,7 +401,7 @@ Window {
                         anchors.fill:parent
                         onClicked: {
                             Main.Drawer.down();
-                            controller.initIncrementalAlgorithm();
+                            controller.refresh();
                         }
                     }
                 }
@@ -427,7 +427,7 @@ Window {
                         anchors.fill:parent
                         onClicked: {
                             Main.Drawer.right();
-                            controller.initIncrementalAlgorithm();
+                            controller.refresh();
                         }
                     }
                 }
@@ -453,7 +453,7 @@ Window {
                         anchors.fill:parent
                         onClicked: {
                             Main.Drawer.left();
-                            controller.initIncrementalAlgorithm();
+                            controller.refresh();
                         }
                     }
                 }
@@ -479,7 +479,7 @@ Window {
                         anchors.fill:parent
                         onClicked: {
                             Main.Drawer.up();
-                            controller.initIncrementalAlgorithm();
+                            controller.refresh();
                         }
                     }
                 }
@@ -509,27 +509,27 @@ Window {
 
         onDrawPoint: {
             Main.Drawer.repaint();
-            Main.Drawer.drawPoint(Main.Drawer.translateNumber(x),Main.Drawer.translateNumber(y));
+            Main.Drawer.drawPoint(Main.Drawer.translateHorizontal(x),Main.Drawer.translateVertical(y));
         }
 
         onDrawTriangle: {
             Main.Drawer.repaint();
-            Main.Drawer.drawTriangle(Main.Drawer.translateNumber(x1),Main.Drawer.translateNumber(y1),Main.Drawer.translateNumber(x2),Main.Drawer.translateNumber(y2),Main.Drawer.translateNumber(x3),Main.Drawer.translateNumber(y3));
+            Main.Drawer.drawTriangle(Main.Drawer.translateHorizontal(x1),Main.Drawer.translateVertical(y1),Main.Drawer.translateHorizontal(x2),Main.Drawer.translateVertical(y2),Main.Drawer.translateHorizontal(x3),Main.Drawer.translateVertical(y3));
         }
 
         onDrawLine: {
             Main.Drawer.repaint();
-            Main.Drawer.drawLine(Main.Drawer.translateNumber(x1),Main.Drawer.translateNumber(y1),Main.Drawer.translateNumber(x2),Main.Drawer.translateNumber(y2));
+            Main.Drawer.drawLine(Main.Drawer.translateHorizontal(x1),Main.Drawer.translateVertical(y1),Main.Drawer.translateHorizontal(x2),Main.Drawer.translateVertical(y2));
         }
 
         onDrawCircle: {
             Main.Drawer.repaint();
-            Main.Drawer.drawCircle(Main.Drawer.translateNumber(x),Main.Drawer.translateNumber(y),Main.Drawer.translateNumber(radius));
+            Main.Drawer.drawCircle(Main.Drawer.translateHorizontal(x),Main.Drawer.translateVertical(y),Main.Drawer.translateZoomNumberPoint(radius));
         }
 
         onDrawPaintedCircle: {
             Main.Drawer.repaint();
-            Main.Drawer.drawPaintedCircle(Main.Drawer.translateNumber(x),Main.Drawer.translateNumber(y),Main.Drawer.translateNumber(radius));
+            Main.Drawer.drawPaintedCircle(Main.Drawer.translateHorizontal(x),Main.Drawer.translateVertical(y),Main.Drawer.translateZoomNumberPoint(radius));
         }
     }
 }

@@ -2,14 +2,56 @@ function Drawer() {};
 
 Drawer.prototype.zoomFactor = 0.5;
 Drawer.prototype.zoomTransformFactor = 1;
-Drawer.prototype.translateFactor = 10;
+Drawer.prototype.moveFactor = 10;
+Drawer.prototype.verticalTransformFactor = 0;
+Drawer.prototype.horizontalTransformFactor = 0;
 
-Drawer.prototype.translateNumber = function(number){
+Drawer.prototype.translateVerticalClick = function(number){
+    var resutl = this.translateVerticalNumberClick(this.translateZoomNumberClick(number));
+    return resutl;
+}
+
+Drawer.prototype.translateHorizontalClick = function(number){
+    var resutl = this.translateHorizontalNumberClick(this.translateZoomNumberClick(number));
+    return resutl;
+}
+
+Drawer.prototype.translateVertical = function(number){
+    var resutl = this.translateVerticalNumber(this.translateZoomNumberPoint(number));
+    return resutl;
+}
+
+Drawer.prototype.translateHorizontal = function(number){
+    var resutl = this.translateHorizontalNumber(this.translateZoomNumberPoint(number));
+    return resutl;
+}
+
+Drawer.prototype.translateVerticalNumberClick = function(number){
+    var resutl = number - this.verticalTransformFactor;
+    return resutl;
+}
+
+Drawer.prototype.translateHorizontalNumberClick = function(number){
+    var resutl = number - this.horizontalTransformFactor;
+    return resutl;
+}
+
+Drawer.prototype.translateVerticalNumber = function(number){
+    var resutl = number + this.verticalTransformFactor;
+    return resutl;
+}
+
+Drawer.prototype.translateHorizontalNumber = function(number){
+    var resutl = number + this.horizontalTransformFactor;
+    return resutl;
+}
+
+Drawer.prototype.translateZoomNumberPoint = function(number){
     var result = (number/this.zoomTransformFactor);
     return result;
 };
 
-Drawer.prototype.translateNumberInv = function(number){
+Drawer.prototype.translateZoomNumberClick = function(number){
     var result = (number*this.zoomTransformFactor);
     return result;
 };
@@ -106,35 +148,19 @@ Drawer.prototype.zoomOut = function() {
 }
 
 Drawer.prototype.up = function() {
-    var context = this.getContext();
-
-    this.clear();
-
-    context.translate(0,this.translateFactor);
+    this.verticalTransformFactor = this.verticalTransformFactor - this.moveFactor;
 }
 
 Drawer.prototype.down = function() {
-    var context = this.getContext();
-
-    this.clear();
-
-    context.translate(0,-this.translateFactor);
+    this.verticalTransformFactor = this.verticalTransformFactor + this.moveFactor;
 }
 
 Drawer.prototype.left = function() {
-    var context = this.getContext();
-
-    this.clear();
-
-    context.translate(-this.translateFactor,0);
+    this.horizontalTransformFactor = this.horizontalTransformFactor - this.moveFactor;
 }
 
 Drawer.prototype.right = function() {
-    var context = this.getContext();
-
-    this.clear();
-
-    context.translate(this.translateFactor,0);
+    this.horizontalTransformFactor = this.horizontalTransformFactor + this.moveFactor;
 }
 
 var Drawer = new Drawer();
