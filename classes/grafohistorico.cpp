@@ -29,6 +29,10 @@ bool GrafoHistorico::encontrarContienePunto(QPair<double, double> punto){
 }
 
 void GrafoHistorico::encontrar(NodoGrafo *nodo, QPair<double, double> punto,bool & encontrado){
+    if(!this->raiz->getTriangulo()->tieneDentro(punto)){
+        qDebug() << "Grafo historico: El punto se encuentra fuera del triangulo exterior";
+        return;
+    }
     if(this->flagYaPertenece){
         return;
     }

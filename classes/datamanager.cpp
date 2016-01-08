@@ -68,6 +68,7 @@ void DataManager::addPoint(double x, double y) {
 void DataManager::reset(){
     this->points.clear();
     this->circuncentros.clear();
+    this->circunscriptas.clear();
     this->triangulation.clear();
     this->delaunay.resetear();
     this->aristas.clear();
