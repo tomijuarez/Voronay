@@ -56,20 +56,22 @@ void Voronoi::calcular(GrafoHistorico *grafoDelaunay){
             nodo1 = grafoDelaunay->getPrimero();
             nodo2 = grafoDelaunay->getSegundo();
 
-            adyacente = nodo1->getTriangulo();
+            if(nodo1 != NULL && nodo2 != NULL){
+                adyacente = nodo1->getTriangulo();
 
-            if ( adyacente == triangulo )
-                adyacente = nodo2->getTriangulo();
+                if ( adyacente == triangulo )
+                    adyacente = nodo2->getTriangulo();
 
-            circunscripta = triangulo->getCircunscripta();
+                circunscripta = triangulo->getCircunscripta();
 
-            punto1 = circunscripta->getCentro();
+                punto1 = circunscripta->getCentro();
 
-            circunscripta = adyacente->getCircunscripta();
+                circunscripta = adyacente->getCircunscripta();
 
-            punto2 = circunscripta->getCentro();
+                punto2 = circunscripta->getCentro();
 
-            this->agregarArista(punto1, punto2);
+                this->agregarArista(punto1, punto2);
+            }else{qDebug() << "Voronoi: no pudo encontrar adyacente";}
         }
     }
 }
