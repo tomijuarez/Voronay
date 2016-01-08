@@ -1,26 +1,6 @@
 #include "circunscripta.h"
 #include <math.h>
 #include <QDebug>
-/*
-Circunscripta::Circunscripta(QPair<double, double> punto1, QPair<double, double> punto2, QPair<double, double> punto3) {
-    double bc = (pow(punto1.first, 2) + pow(punto1.first, 2) - pow(punto2.first, 2) + pow(punto2.second, 2))/2.0;
-    double cd = (pow(punto2.first, 2) + pow(punto2.first, 2) - pow(punto3.first, 2) + pow(punto3.second, 2))/2.0;
-
-    double det = (punto1.first - punto2.first)*(punto2.second - punto3.second)-(punto2.first - punto3.first)*(punto1.second - punto2.second);
-
-    if (abs(det) < 1.0e-6) {
-        this->centro.first = this->centro.second = 1.0;
-        return;
-    }
-
-    det = 1/det;
-
-    this->centro.first = (bc*(punto2.second - punto3.second) - cd*(punto1.second - punto2.second))*det;
-    this->centro.second = (cd*(punto1.first - punto2.first) - bc*(punto2.first - punto3.first))*det;
-
-    this->radio = sqrt(pow(this->centro.first - punto1.first, 2) + pow(this->centro.second - punto1.second,2));
-}
-*/
 
 Circunscripta::Circunscripta(QPair<double, double> punto1, QPair<double, double> punto2, QPair<double, double> punto3) {
       //qDebug() << "Calculando Circuncentro";
