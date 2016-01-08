@@ -352,6 +352,7 @@ Window {
 
             onPaint: {
                 Main.Drawer.setCanvas(this);
+                Main.Drawer.drawAxis();
             }
 
             onCanvasSizeChanged: {
@@ -530,6 +531,11 @@ Window {
         onDrawPaintedCircle: {
             Main.Drawer.repaint();
             Main.Drawer.drawPaintedCircle(Main.Drawer.translateHorizontal(x),Main.Drawer.translateVertical(y),Main.Drawer.translateZoomNumberPoint(radius));
+        }
+
+        onDrawAxis: {
+            Main.Drawer.repaint();
+            Main.Drawer.drawAxis();
         }
     }
 }

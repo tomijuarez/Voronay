@@ -2,9 +2,34 @@ function Drawer() {};
 
 Drawer.prototype.zoomFactor = 0.5;
 Drawer.prototype.zoomTransformFactor = 1;
-Drawer.prototype.moveFactor = 10;
+Drawer.prototype.moveFactor = 50;
 Drawer.prototype.verticalTransformFactor = 0;
 Drawer.prototype.horizontalTransformFactor = 0;
+Drawer.prototype.axisScale = 100;
+Drawer.prototype.axisLimit = 7000;
+
+Drawer.prototype.drawAxis = function(){
+    var context = this.getContext();
+    var fontSize = Math.floor(25/this.zoomTransformFactor);
+    context.font= fontSize.toString() + "px Georgia";
+    context.textAlign = "center";
+    context.fillText(0,this.translateHorizontal(10),this.translateVertical(-5));
+    fontSize = Math.floor(25/this.zoomTransformFactor);
+    context.font= fontSize.toString() + "px Georgia";
+    this.drawLine(this.translateHorizontal(0),this.translateVertical(this.axisLimit),this.translateHorizontal(0),this.translateVertical(-this.axisLimit));
+    this.drawLine(this.translateHorizontal(this.axisLimit),this.translateVertical(0),this.translateHorizontal(-this.axisLimit),this.translateVertical(0));
+    var i;
+    for (i = this.axisScale; i < this.axisLimit; i = i + this.axisScale) {
+       this.drawLine(this.translateHorizontal(10),this.translateVertical(i),this.translateHorizontal(-10),this.translateVertical(i));
+       this.drawLine(this.translateHorizontal(10),this.translateVertical(-i),this.translateHorizontal(-10),this.translateVertical(-i));
+       this.drawLine(this.translateHorizontal(i),this.translateVertical(10),this.translateHorizontal(i),this.translateVertical(-10));
+       this.drawLine(this.translateHorizontal(-i),this.translateVertical(10),this.translateHorizontal(-i),this.translateVertical(-10));
+       context.fillText(i,this.translateHorizontal(i),this.translateVertical(25));
+       context.fillText(-i,this.translateHorizontal(-i),this.translateVertical(25));
+       context.fillText(i,this.translateHorizontal(0-30),this.translateVertical(i+5));
+       context.fillText(-i,this.translateHorizontal(0-30),this.translateVertical(-i+5));
+    }
+}
 
 Drawer.prototype.translateVerticalClick = function(number){
     var resutl = this.translateZoomNumberClick(this.translateVerticalNumberClick(number));
