@@ -25,6 +25,7 @@ class DataManager : public QObject {
         void clear();
         void reset();
         void initIncrementalAlgorithm();
+        void refresh();
 
     private:
         void triangulate();

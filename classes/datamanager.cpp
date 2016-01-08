@@ -8,9 +8,17 @@ void DataManager::initIncrementalAlgorithm() {
     Triangulo triangulo(punto1,punto2,punto3);
     this->externTriangle = &(triangulo);
     this->calculada = true;
+    this->cleanScene();
     this->triangulate();
     this->tessellate();
     this->cambio = false;
+}
+
+void DataManager::refresh(){
+    this->drawCircuncentros();
+    this->drawCircunscriptas();
+    this->drawLines();
+    this->drawTriangles();
 }
 
 void DataManager::drawLines() {
@@ -111,7 +119,6 @@ void DataManager::drawCircunscriptas() {
 }
 
 void DataManager::drawTriangles() {
-    this->cleanScene();
     foreach(Triangulo * triangle, this->triangulation) {
         QList<QPair<double, double>> vertices = triangle->getVertices();
         QPair<double,double> vertice1 = vertices.at(0);
