@@ -424,7 +424,7 @@ Window {
 
         onDrawPaintedCircle: {
             Main.Drawer.repaint();
-            Main.Drawer.drawCircle(x,y,radius);
+            Main.Drawer.drawPaintedCircle(x,y,radius);
         }
     }
 }
