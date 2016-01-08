@@ -20,9 +20,8 @@ void Voronoi::agregarArista(QPair<double, double> punto1, QPair<double, double> 
 }
 
 void Voronoi::calcular(GrafoHistorico *grafoDelaunay){
-
+    this->aristas.clear();
     QList<Triangulo*> triangulos = grafoDelaunay->listarHojas();
-
     QPair<double, double> puntoMedioArista;
     QList<QPair<QPair<double, double>, QPair<double,double> > > aristas;
     QPair<QPair<double, double>, QPair<double, double> > arista;
