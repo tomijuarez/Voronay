@@ -14,7 +14,7 @@ void Triangulo::definirPuntos(QPair<double, double> punto1, QPair<double, double
 }
 
 double Triangulo::area(QPair<double, double> punto1, QPair<double, double> punto2, QPair<double, double> punto3) {
-    return fabsf(
+    return fabs(
         (
                 punto1.first * ( punto2.second - punto3.second )
             +   punto2.first * ( punto3.second - punto1.second )
