@@ -15,6 +15,7 @@ public:
     QList<Triangulo*> triangular();
     void resetear();
     QList<QPair<double, double> > getPuntos() const;
+    void agregarPunto(QPair<double,double> punto);
     void setPuntos(const QList<QPair<double, double> > &value);
 
     Triangulo *getTrianguloExterior() const;

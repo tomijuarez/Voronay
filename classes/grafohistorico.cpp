@@ -108,7 +108,6 @@ void GrafoHistorico::clear(){
         nodo->clear();
         delete nodo;
     }
-    qDebug()<<"Break2";
     this->procesados.clear();
 }
 

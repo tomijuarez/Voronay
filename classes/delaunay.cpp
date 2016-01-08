@@ -41,10 +41,10 @@ QList<Triangulo *> Delaunay::triangular(){
         this->grafoHistorico->clear();
         delete this->grafoHistorico;
         this->grafoHistorico = NULL;
-        this->calculada = false;
        }
       this->puntosInsertados.clear();
       this->puntos.clear();
+      this->calculada = false;
     }
 
 
@@ -309,6 +309,15 @@ void Delaunay::setTrianguloExterior(Triangulo *value){
 QList<QPair<double, double> > Delaunay::getPuntos() const
 {
     return this->puntos;
+}
+
+void Delaunay::agregarPunto(QPair<double, double> punto){
+    if(this->calculada == false){
+        qDebug() << "Primero debe calcular la triangulacion una vez antes de agregar mas puntos";
+    }
+    else{
+        this->insertarVertice(punto);
+    }
 }
 
 void Delaunay::setPuntos(const QList<QPair<double, double> > &value){

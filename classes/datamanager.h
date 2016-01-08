@@ -36,7 +36,8 @@ class DataManager : public QObject {
         QList<QPair<double, double> > points;
         QList<Triangulo *> triangulation;
 
-        bool cambio;
+        bool cambio = false;
+        bool calculada = false;
 };
 
 #endif // DATAMANAGER_H
