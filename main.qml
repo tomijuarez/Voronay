@@ -139,8 +139,8 @@ Window {
 
     Rectangle {
         id: rectangle1
-        width: canvasWrapperWidthSize
-        height: canvasWrapperHeightSize
+        width: parent.width - leftMenuWidth
+        height: parent.height
         color: "#EEE"
         anchors.verticalCenter: parent.verticalCenter
 
@@ -227,15 +227,14 @@ Window {
                 }
             }
         }
-
         Canvas {
             id: canvas1
             x: 0
             y: 30
-            width: canvasWrapperWidthSize
-            height: canvasHeight
+            width: parent.width
+            height: parent.height - 30
             anchors.left: parent.left
-            anchors.top: parent.top
+            anchors.bottom: parent.bottom
             anchors.topMargin: 30
 
 
@@ -251,6 +250,10 @@ Window {
 
             onPaint: {
                 Main.Drawer.setCanvas(this);
+            }
+
+            onCanvasSizeChanged: {
+                controller.refresh()
             }
 
             MouseArea {
