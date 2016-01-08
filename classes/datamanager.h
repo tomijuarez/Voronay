@@ -33,12 +33,14 @@ class DataManager : public QObject {
         void drawPoints();
         void drawLines();
         void drawCircuncentros();
+        void drawCircunscriptas();
 
         Delaunay delaunay;
         Voronoi voronoi;
         Triangulo * externTriangle;
         QList<QPair<double, double> > points;
         QList<QPair<double, double> > circuncentros;
+        QList<Circunscripta*> circunscriptas;
         QList<Triangulo *> triangulation;
         QList<QPair<QPair<double, double>, QPair<double, double> > > aristas;
 

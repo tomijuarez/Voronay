@@ -38,11 +38,13 @@ void DataManager::addPoint(double x, double y) {
         this->voronoi.calcular(grafoDelaunay);
         this->aristas = this->voronoi.getAristas();
         this->circuncentros = this->voronoi.getCircuncentros();
+        this->circunscriptas = this->voronoi.getCircunscriptas();
         this->cleanScene();
         this->drawTriangles();
         this->drawLines();
         this->drawPoints();
         this->drawCircuncentros();
+        this->drawCircunscriptas();
         this->cambio = false;
      }
 }
@@ -79,9 +81,11 @@ void DataManager::tessellate(){
         this->voronoi.calcular(grafoDelaunay);
         this->aristas = voronoi.getAristas();
         this->circuncentros = this->voronoi.getCircuncentros();
+        this->circunscriptas = this->voronoi.getCircunscriptas();
     }
     this->drawLines();
     this->drawCircuncentros();
+    this->drawCircunscriptas();
 }
 
 void DataManager::drawPoints() {
@@ -94,7 +98,15 @@ void DataManager::drawPoints() {
 void DataManager::drawCircuncentros() {
     QPair<double, double> point;
     foreach(point, this->circuncentros) {
-        this->drawPoint(point.first, point.second);
+        this->drawPaintedCircle(point.first, point.second,3);
+    }
+}
+
+void DataManager::drawCircunscriptas() {
+    Circunscripta * circ;
+    foreach(circ, this->circunscriptas) {
+        QPair<double,double> centro = circ->getCentro();
+        this->drawCircle(centro.first,centro.second,circ->getRadio());
     }
 }
 
