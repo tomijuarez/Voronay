@@ -109,6 +109,7 @@ void Delaunay::generarTriangulos( NodoGrafo * nodo, QPair<double, double> vertic
     nodo->agregarHijo(nodoT1);
     nodo->agregarHijo(nodoT2);
     nodo->agregarHijo(nodoT3);
+    this->grafoHistorico->informarCambio();
     //Legalizamos los nuevos triangulos
     this->legalizarLado(vertice,vertices.at(0),vertices.at(1),nodoT1);
     this->legalizarLado(vertice,vertices.at(2),vertices.at(0),nodoT2);
@@ -206,6 +207,7 @@ void Delaunay::dividirTriangulos( NodoGrafo * nodo1, NodoGrafo * nodo2, QPair<do
     nodo1->agregarHijo(nodoT12);
     nodo2->agregarHijo(nodoT21);
     nodo2->agregarHijo(nodoT22);
+    this->grafoHistorico->informarCambio();
     //Legalizamos los nuevos triangulos
     this->legalizarLado(vertice,verticeCompartido1,verticeDistinto1,nodoT11);
     this->legalizarLado(vertice,verticeCompartido2,verticeDistinto1,nodoT12);
@@ -278,6 +280,7 @@ void Delaunay::legalizarLado(QPair<double, double> puntoNuevo, QPair<double, dou
                        adyacente->agregarHijo(nodoT2);
                        nodo->agregarHijo(nodoT1);
                        nodo->agregarHijo(nodoT2);
+                       this->grafoHistorico->informarCambio();
                    //Hay que legalizar las nuevas aristas que no contienen al punto que se inserto
                        this->legalizarLado(puntoNuevo,vertice1,verticeDistintoAdyacente,nodoT1);
                        this->legalizarLado(puntoNuevo,vertice2,verticeDistintoAdyacente,nodoT2);

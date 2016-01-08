@@ -16,6 +16,7 @@ public:
     NodoGrafo * getSegundo();
     NodoGrafo * busquedaSelectiva(QPair<double,double> punto, NodoGrafo * nodo);
     void clear();
+    void informarCambio();
     QList<Triangulo*> listarHojas();
 
 private:
@@ -31,6 +32,7 @@ private:
     QPair<double,double> p2;
     QPair<double,double> p3;
     bool flagYaPertenece = false;
+    bool calculado = false;
 };
 
 #endif // GRAFOHISTORICO_H
