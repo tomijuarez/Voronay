@@ -7,12 +7,12 @@ Drawer.prototype.verticalTransformFactor = 0;
 Drawer.prototype.horizontalTransformFactor = 0;
 
 Drawer.prototype.translateVerticalClick = function(number){
-    var resutl = this.translateVerticalNumberClick(this.translateZoomNumberClick(number));
+    var resutl = this.translateZoomNumberClick(this.translateVerticalNumberClick(number));
     return resutl;
 }
 
 Drawer.prototype.translateHorizontalClick = function(number){
-    var resutl = this.translateHorizontalNumberClick(this.translateZoomNumberClick(number));
+    var resutl = this.translateZoomNumberClick(this.translateHorizontalNumberClick(number));
     return resutl;
 }
 
@@ -27,22 +27,22 @@ Drawer.prototype.translateHorizontal = function(number){
 }
 
 Drawer.prototype.translateVerticalNumberClick = function(number){
-    var resutl = number - this.verticalTransformFactor;
-    return resutl;
-}
-
-Drawer.prototype.translateHorizontalNumberClick = function(number){
-    var resutl = number - this.horizontalTransformFactor;
-    return resutl;
-}
-
-Drawer.prototype.translateVerticalNumber = function(number){
     var resutl = number + this.verticalTransformFactor;
     return resutl;
 }
 
-Drawer.prototype.translateHorizontalNumber = function(number){
+Drawer.prototype.translateHorizontalNumberClick = function(number){
     var resutl = number + this.horizontalTransformFactor;
+    return resutl;
+}
+
+Drawer.prototype.translateVerticalNumber = function(number){
+    var resutl = number - this.verticalTransformFactor;
+    return resutl;
+}
+
+Drawer.prototype.translateHorizontalNumber = function(number){
+    var resutl = number - this.horizontalTransformFactor;
     return resutl;
 }
 
@@ -148,19 +148,19 @@ Drawer.prototype.zoomOut = function() {
 }
 
 Drawer.prototype.up = function() {
-    this.verticalTransformFactor = this.verticalTransformFactor - this.moveFactor;
-}
-
-Drawer.prototype.down = function() {
     this.verticalTransformFactor = this.verticalTransformFactor + this.moveFactor;
 }
 
+Drawer.prototype.down = function() {
+    this.verticalTransformFactor = this.verticalTransformFactor - this.moveFactor;
+}
+
 Drawer.prototype.left = function() {
-    this.horizontalTransformFactor = this.horizontalTransformFactor - this.moveFactor;
+    this.horizontalTransformFactor = this.horizontalTransformFactor + this.moveFactor;
 }
 
 Drawer.prototype.right = function() {
-    this.horizontalTransformFactor = this.horizontalTransformFactor + this.moveFactor;
+    this.horizontalTransformFactor = this.horizontalTransformFactor - this.moveFactor;
 }
 
 var Drawer = new Drawer();

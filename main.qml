@@ -363,7 +363,7 @@ Window {
                 onClicked: {
                     Main.Drawer.repaint();
                     var x = mouseX, y = mouseY;
-                    Main.Drawer.drawPoint(Main.Drawer.translateHorizontal(x-1),Main.Drawer.translateVertical(y-1));
+                    Main.Drawer.drawPoint(x-1,y-1);
                     controller.addPoint(Main.Drawer.translateHorizontalClick(x-1),Main.Drawer.translateVerticalClick(y-1));
                 }
             }
