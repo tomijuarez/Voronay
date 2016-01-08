@@ -391,7 +391,7 @@ Window {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-                            controller.clear();
+                            controller.reset();
                             Main.Drawer.clear();
                             sameScene = false;
                         }
@@ -453,6 +453,7 @@ Window {
          */
 
         onCleanScene: {
+            Main.Drawer.repaint();
             Main.Drawer.clear();
         }
 

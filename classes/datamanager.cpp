@@ -7,6 +7,7 @@ void DataManager::initIncrementalAlgorithm() {
     QPair<double, double> punto3(-1000,-1000);
     Triangulo triangulo(punto1,punto2,punto3);
     this->externTriangle = &(triangulo);
+    this->calculada = true;
     this->triangulate();
 }
 
@@ -30,9 +31,16 @@ void DataManager::clear() {
 }
 
 void DataManager::addPoint(double x, double y) {
-    QPair<double, double> punto(x,y);
-    this->points.push_back(punto);
-    this->cambio = true;
+        QPair<double, double> punto(x,y);
+        this->points.push_back(punto);
+        this->cambio = true;
+    if(this->calculada){
+        this->delaunay.agregarPunto(punto);
+        this->triangulation = this->delaunay.triangular();
+        this->drawTriangles();
+        this->drawPoints();
+        this->cambio = false;
+     }
 }
 
 /**
@@ -40,8 +48,11 @@ void DataManager::addPoint(double x, double y) {
  */
 
 void DataManager::reset(){
-   // this->points.clear();
+    this->points.clear();
+    this->triangulation.clear();
     this->delaunay.resetear();
+    this->cleanScene();
+    this->calculada = false;
 }
 
 void DataManager::triangulate() {

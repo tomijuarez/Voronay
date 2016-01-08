@@ -21,6 +21,7 @@ bool GrafoHistorico::encontrarContienePunto(QPair<double, double> punto){
     this->segundo = NULL;
     bool encontrado = false;
     this->encontrar(this->raiz,punto,encontrado);
+    this->flagYaPertenece = false;
     if(!encontrado){
         qDebug() << "no se encontro triangulo";
     }
@@ -28,6 +29,14 @@ bool GrafoHistorico::encontrarContienePunto(QPair<double, double> punto){
 }
 
 void GrafoHistorico::encontrar(NodoGrafo *nodo, QPair<double, double> punto,bool & encontrado){
+    if(this->flagYaPertenece){
+        return;
+    }
+    if(nodo->getTriangulo()->contienePunto(punto)){
+        qDebug() << "El punto ya se encuentra en la traingulacion";
+        this->flagYaPertenece = true;
+        return;
+    }
     if(nodo->getHijos().count() != 0){ //no es una hoja
         QList<NodoGrafo*> hijos = nodo->getHijos();
         NodoGrafo * hijo;
@@ -86,6 +95,7 @@ NodoGrafo *GrafoHistorico::busquedaSelectiva(QPair<double, double> punto, NodoGr
     this->segundo = NULL;
     bool useless = false;
     this->encontrar(this->raiz,punto,useless);
+    this->flagYaPertenece = false;
     NodoGrafo * n1 = this->getPrimero();
     NodoGrafo * n2 = this->getSegundo();
     if(n1 != nodo && n1 != NULL){
@@ -108,7 +118,6 @@ void GrafoHistorico::clear(){
         nodo->clear();
         delete nodo;
     }
-    qDebug()<<"Break2";
     this->procesados.clear();
 }
 
