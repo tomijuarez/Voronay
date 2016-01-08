@@ -9,35 +9,36 @@ void DataManager::initIncrementalAlgorithm() {
     this->externTriangle = &(triangulo);
     this->calculada = true;
     this->triangulate();
+    this->tessellate();
 }
 
-void DataManager::initFortunesAlgorithm() {
-    this->tesel();
-}
-
-void DataManager::tesel(){
-    GrafoHistorico * grafoDelaunay = this->delaunay.getGrafoHistorico();
-    QList<QPair<double,double> > aristasVoronoi = this->voronoi.calcular(grafoDelaunay);
-    QPair<double,double> arista;
-    foreach(arista,aristasVoronoi){
-        this->drawLine(arista.first,arista.second);
+void DataManager::drawLines() {
+    QPair<QPair<double, double>, QPair<double, double> > arista;
+    foreach(arista, this->aristas) {
+        this->drawLine(arista.first.first, arista.first.second, arista.second.first, arista.second.second);
     }
 }
 
 void DataManager::clear() {
     this->triangulation.clear();
+    this->aristas.clear();
     this->points.clear();
     this->cambio = true;
 }
 
 void DataManager::addPoint(double x, double y) {
-        QPair<double, double> punto(x,y);
-        this->points.push_back(punto);
-        this->cambio = true;
+    QPair<double, double> punto(x,y);
+    this->points.push_back(punto);
+    this->cambio = true;
     if(this->calculada){
         this->delaunay.agregarPunto(punto);
         this->triangulation = this->delaunay.triangular();
+        GrafoHistorico * grafoDelaunay = this->delaunay.getGrafoHistorico();
+        this->voronoi.calcular(grafoDelaunay);
+        this->aristas = this->voronoi.getAristas();
+        this->cleanScene();
         this->drawTriangles();
+        this->drawLines();
         this->drawPoints();
         this->cambio = false;
      }
@@ -51,6 +52,8 @@ void DataManager::reset(){
     this->points.clear();
     this->triangulation.clear();
     this->delaunay.resetear();
+    this->aristas.clear();
+    this->voronoi.clear();
     this->cleanScene();
     this->calculada = false;
 }
@@ -62,12 +65,18 @@ void DataManager::triangulate() {
         this->triangulation = this->delaunay.triangular();
     }
 
-    qDebug() << " *------------------------* Hay " << this->points.size();
-
     this->drawTriangles();
     this->drawPoints();
 
     this->cambio = false;
+}
+
+void DataManager::tessellate(){
+    GrafoHistorico * grafoDelaunay = this->delaunay.getGrafoHistorico();
+    this->voronoi.calcular(grafoDelaunay);
+    this->aristas = voronoi.getAristas();
+
+    this->drawLines();
 }
 
 void DataManager::drawPoints() {

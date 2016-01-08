@@ -35,11 +35,34 @@ Drawer.prototype.drawTriangle = function(x1, y1, x2, y2, x3, y3) {
     context.lineTo(x3, y3);
     context.closePath();
 
-    // the outline
     context.lineWidth = 1;
     context.strokeStyle = '#F62459';
     context.stroke();
 
+}
+
+Drawer.prototype.drawCircle = function(x,y,r) {
+    var context = this.getContext();
+    context.beginPath();
+    context.arc(x, y, r, 0, 2 * Math.PI);
+    context.closePath();
+
+    context.strokeStyle = "#00B16A";
+    context.stroke();
+}
+
+Drawer.prototype.drawLine = function(x1,y1,x2,y2) {
+    var context = this.getContext();
+
+    context.beginPath();
+    context.moveTo(x1,y1);
+    context.lineTo(x2,y2);
+
+    context.closePath();
+
+    context.lineWidth = 1;
+    context.strokeStyle = "#0287D0";
+    context.stroke();
 }
 
 Drawer.prototype.drawPoint = function(x,y) {
@@ -55,7 +78,6 @@ Drawer.prototype.zoomIn = function() {
 
     this.clear();
     context.scale(this.zoom, this.zoom);
-    this.applyAxisTransformation();
 }
 
 Drawer.prototype.zoomOut = function() {
@@ -64,14 +86,12 @@ Drawer.prototype.zoomOut = function() {
 
     this.clear();
     context.scale(this.zoom, this.zoom);
-    this.applyAxisTransformation();
 }
 
 Drawer.prototype.up = function() {
     var context = this.getContext();
 
     this.clear();
-    this.applyAxisTransformation();
 
     context.translate(0,this.translateFactor);
 }
@@ -80,7 +100,6 @@ Drawer.prototype.down = function() {
     var context = this.getContext();
 
     this.clear();
-    this.applyAxisTransformation();
 
     context.translate(0,-this.translateFactor);
 }
@@ -89,7 +108,6 @@ Drawer.prototype.left = function() {
     var context = this.getContext();
 
     this.clear();
-    this.applyAxisTransformation();
 
     context.translate(-this.translateFactor,0);
 }
@@ -98,7 +116,6 @@ Drawer.prototype.right = function() {
     var context = this.getContext();
 
     this.clear();
-    this.applyAxisTransformation();
 
     context.translate(this.translateFactor,0);
 }

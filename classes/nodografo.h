@@ -3,6 +3,7 @@
 
 #include "triangulo.h"
 #include <QList>
+#include <QDebug>
 
 class NodoGrafo
 {
@@ -14,6 +15,11 @@ public:
     bool getProcesado() const;
     void setProcesado(bool value);
     void clear();
+    void imprimir() {
+        qDebug()<< "************************";
+        this->triangulo->imprimir();
+    }
+
     ~NodoGrafo();
 private:
     Triangulo * triangulo;

@@ -10,7 +10,8 @@ SOURCES += main.cpp \
     classes/triangulo.cpp \
     classes/voronoi.cpp \
     classes/grafohistorico.cpp \
-    classes/nodografo.cpp
+    classes/nodografo.cpp \
+    classes/arista.cpp
 
 
 RESOURCES += qml.qrc
@@ -28,5 +29,6 @@ HEADERS += \
     classes/triangulo.h \
     classes/voronoi.h \
     classes/grafohistorico.h \
-    classes/nodografo.h
+    classes/nodografo.h \
+    classes/arista.h
 
