@@ -26,10 +26,14 @@ class DataManager : public QObject {
         void reset();
         void initIncrementalAlgorithm();
         void refresh();
+        void changeDrawTriangles();
+        void changeDrawCircles();
+        void changeDrawVoronoi();
 
     private:
         void triangulate();
         void tessellate();
+        void draw();
         void drawTriangles();
         void drawPoints();
         void drawLines();
@@ -47,6 +51,9 @@ class DataManager : public QObject {
 
         bool cambio = false;
         bool calculada = false;
+        bool triangulosActivos = true;
+        bool circulosActivos = true;
+        bool voronoiActivo = true;
 };
 
 #endif // DATAMANAGER_H

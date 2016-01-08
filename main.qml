@@ -128,7 +128,109 @@ Window {
                         controller.reset();
                     }
                 }
+            }
 
+            Rectangle {
+                width: 200
+                height: 40
+                color: "transparent"
+                anchors {
+                    top: parent.top
+                    left: parent.left
+                    topMargin: 200
+                    leftMargin: 10
+                }
+
+                Row {
+                    spacing: 25
+                    Rectangle {
+                        color: flatBlue;
+                        width: 50;
+                        height: 36
+                        Text {
+                            anchors {
+                                horizontalCenter: parent.horizontalCenter
+                                centerIn: parent
+                            }
+
+                            font.pointSize: 12
+                            text: "T"
+                            color: "white"
+                        }
+
+                          MouseArea {
+                            anchors.fill: parent
+
+                            onClicked: {
+                                controller.changeDrawTriangles();
+                                if(parent.color == "#0287d0"){
+                                    parent.color = flatLightBlue;
+                                }else{
+                                    parent.color = flatBlue;
+                                }
+                                controller.refresh();
+                            }
+                         }
+                       }
+                    Rectangle {
+                        color: flatBlue;
+                        width: 50;
+                        height: 36
+                        Text {
+                            anchors {
+                                horizontalCenter: parent.horizontalCenter
+                                centerIn: parent
+                            }
+
+                            font.pointSize: 12
+                            text: "C"
+                            color: "white"
+                        }
+
+                          MouseArea {
+                            anchors.fill: parent
+
+                            onClicked: {
+                                controller.changeDrawCircles();
+                                if(parent.color == "#0287d0"){
+                                    parent.color = flatLightBlue;
+                                }else{
+                                    parent.color = flatBlue;
+                                }
+                                controller.refresh();
+                            }
+                         }
+                       }
+                    Rectangle {
+                        color: flatBlue;
+                        width: 50;
+                        height: 36
+                        Text {
+                            anchors {
+                                horizontalCenter: parent.horizontalCenter
+                                centerIn: parent
+                            }
+
+                            font.pointSize: 12
+                            text: "V"
+                            color: "white"
+                        }
+
+                          MouseArea {
+                            anchors.fill: parent
+
+                            onClicked: {
+                                controller.changeDrawVoronoi();
+                                if(parent.color == "#0287d0"){
+                                    parent.color = flatLightBlue;
+                                }else{
+                                    parent.color = flatBlue;
+                                }
+                                controller.refresh();
+                            }
+                         }
+                       }
+                }
             }
         }
     }

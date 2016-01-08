@@ -8,17 +8,26 @@ void DataManager::initIncrementalAlgorithm() {
     Triangulo triangulo(punto1,punto2,punto3);
     this->externTriangle = &(triangulo);
     this->calculada = true;
-    this->cleanScene();
     this->triangulate();
     this->tessellate();
+    this->draw();
     this->cambio = false;
 }
 
 void DataManager::refresh(){
-    this->drawCircuncentros();
-    this->drawCircunscriptas();
-    this->drawLines();
-    this->drawTriangles();
+    this->draw();
+}
+
+void DataManager::changeDrawTriangles(){
+    this->triangulosActivos = !this->triangulosActivos;
+}
+
+void DataManager::changeDrawCircles(){
+    this->circulosActivos = !this->circulosActivos;
+}
+
+void DataManager::changeDrawVoronoi(){
+    this->voronoiActivo = !this->voronoiActivo;
 }
 
 void DataManager::drawLines() {
@@ -47,12 +56,7 @@ void DataManager::addPoint(double x, double y) {
         this->aristas = this->voronoi.getAristas();
         this->circuncentros = this->voronoi.getCircuncentros();
         this->circunscriptas = this->voronoi.getCircunscriptas();
-        this->cleanScene();
-        this->drawTriangles();
-        this->drawLines();
-        this->drawPoints();
-        this->drawCircuncentros();
-        this->drawCircunscriptas();
+        this->draw();
         this->cambio = false;
      }
 }
@@ -78,9 +82,6 @@ void DataManager::triangulate() {
         this->delaunay.setPuntos(this->points);
         this->triangulation = this->delaunay.triangular();
     }
-
-    this->drawTriangles();
-    this->drawPoints();
 }
 
 void DataManager::tessellate(){
@@ -91,9 +92,23 @@ void DataManager::tessellate(){
         this->circuncentros = this->voronoi.getCircuncentros();
         this->circunscriptas = this->voronoi.getCircunscriptas();
     }
-    this->drawLines();
-    this->drawCircuncentros();
-    this->drawCircunscriptas();
+}
+
+void DataManager::draw(){
+    this->cleanScene();
+    if(this->triangulosActivos){
+        this->drawTriangles();
+        this->drawPoints();
+    }
+    if(this->circulosActivos || this->voronoiActivo){
+        this->drawCircuncentros();
+        if(this->circulosActivos){
+            this->drawCircunscriptas();
+        }
+        if(this->voronoiActivo){
+            this->drawLines();
+        }
+    }
 }
 
 void DataManager::drawPoints() {

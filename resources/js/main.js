@@ -60,7 +60,7 @@ Drawer.prototype.drawPaintedCircle = function(x,y,r) {
     context.fillStyle="#794044";
     context.fill();
 
-    context.strokeStyle = "#00B16A";
+    context.strokeStyle = "#794044";
     context.stroke();
 }
 
