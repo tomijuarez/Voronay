@@ -9,6 +9,7 @@
 #include <QMap>
 #include "triangulo.h"
 #include "arista.h"
+#include "circunscripta.h"
 
 class Voronoi
 {
@@ -17,6 +18,8 @@ public:
     ~Voronoi();
     void calcular(GrafoHistorico * grafoDelaunay);
     QList<QPair<QPair<double, double>, QPair<double, double> > > getAristas();
+    QList<QPair<double,double> > getCircuncentros();
+    QList<Circunscripta *> getCircunscriptas();
     void clear();
 
 private:
@@ -25,6 +28,8 @@ private:
 
 
     QList<QPair<QPair<double, double>, QPair<double, double> > > aristas;
+    QList<QPair<double, double> > circuncentros;
+    QList<Circunscripta *> circunscriptas;
 };
 
 #endif // VORONOI_H

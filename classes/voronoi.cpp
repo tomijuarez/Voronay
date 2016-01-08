@@ -9,6 +9,14 @@ QList<QPair<QPair<double, double>, QPair<double, double> > > Voronoi::getAristas
     return this->aristas;
 }
 
+QList<QPair<double, double> > Voronoi::getCircuncentros(){
+    return this->circuncentros;
+}
+
+QList<Circunscripta *> Voronoi::getCircunscriptas(){
+    return this->circunscriptas;
+}
+
 QPair<double, double> Voronoi::midPoint( QPair<QPair<double, double>, QPair<double,double> > arista) {
     QPair<double, double> pair((arista.first.first + arista.second.first) / 2.0,(arista.first.second + arista.second.second) / 2.0);
     return pair;
@@ -21,6 +29,8 @@ void Voronoi::agregarArista(QPair<double, double> punto1, QPair<double, double> 
 
 void Voronoi::calcular(GrafoHistorico *grafoDelaunay){
     this->aristas.clear();
+    this->circuncentros.clear();
+    this->circunscriptas.clear();
     QList<Triangulo*> triangulos = grafoDelaunay->listarHojas();
     QPair<double, double> puntoMedioArista;
     QList<QPair<QPair<double, double>, QPair<double,double> > > aristas;
@@ -34,6 +44,8 @@ void Voronoi::calcular(GrafoHistorico *grafoDelaunay){
 
 
     foreach (Triangulo * triangulo, triangulos) {
+        this->circunscriptas.append(triangulo->getCircunscripta());
+        this->circuncentros.append(triangulo->getCircunscripta()->getCentro());
         aristas = triangulo->getAristas();
         for ( int i = 0; i < aristas.size(); i++) {
             arista = aristas.at(i);

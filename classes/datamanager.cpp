@@ -10,6 +10,7 @@ void DataManager::initIncrementalAlgorithm() {
     this->calculada = true;
     this->triangulate();
     this->tessellate();
+    this->cambio = false;
 }
 
 void DataManager::drawLines() {
@@ -36,10 +37,12 @@ void DataManager::addPoint(double x, double y) {
         GrafoHistorico * grafoDelaunay = this->delaunay.getGrafoHistorico();
         this->voronoi.calcular(grafoDelaunay);
         this->aristas = this->voronoi.getAristas();
+        this->circuncentros = this->voronoi.getCircuncentros();
         this->cleanScene();
         this->drawTriangles();
         this->drawLines();
         this->drawPoints();
+        this->drawCircuncentros();
         this->cambio = false;
      }
 }
@@ -50,6 +53,7 @@ void DataManager::addPoint(double x, double y) {
 
 void DataManager::reset(){
     this->points.clear();
+    this->circuncentros.clear();
     this->triangulation.clear();
     this->delaunay.resetear();
     this->aristas.clear();
@@ -67,21 +71,29 @@ void DataManager::triangulate() {
 
     this->drawTriangles();
     this->drawPoints();
-
-    this->cambio = false;
 }
 
 void DataManager::tessellate(){
-    GrafoHistorico * grafoDelaunay = this->delaunay.getGrafoHistorico();
-    this->voronoi.calcular(grafoDelaunay);
-    this->aristas = voronoi.getAristas();
-
+    if(this->cambio){
+        GrafoHistorico * grafoDelaunay = this->delaunay.getGrafoHistorico();
+        this->voronoi.calcular(grafoDelaunay);
+        this->aristas = voronoi.getAristas();
+        this->circuncentros = this->voronoi.getCircuncentros();
+    }
     this->drawLines();
+    this->drawCircuncentros();
 }
 
 void DataManager::drawPoints() {
     QPair<double, double> point;
     foreach(point, this->points) {
+        this->drawPoint(point.first, point.second);
+    }
+}
+
+void DataManager::drawCircuncentros() {
+    QPair<double, double> point;
+    foreach(point, this->circuncentros) {
         this->drawPoint(point.first, point.second);
     }
 }
