@@ -389,7 +389,7 @@ Window {
                     MouseArea {
                         anchors.fill:parent
                         onClicked: {
-                            Main.Drawer.down();
+                            Main.Drawer.up();
                             controller.refresh();
                         }
                     }
@@ -415,7 +415,7 @@ Window {
                     MouseArea {
                         anchors.fill:parent
                         onClicked: {
-                            Main.Drawer.right();
+                            Main.Drawer.left();
                             controller.refresh();
                         }
                     }
@@ -441,7 +441,7 @@ Window {
                     MouseArea {
                         anchors.fill:parent
                         onClicked: {
-                            Main.Drawer.left();
+                            Main.Drawer.right();
                             controller.refresh();
                         }
                     }
@@ -467,7 +467,7 @@ Window {
                     MouseArea {
                         anchors.fill:parent
                         onClicked: {
-                            Main.Drawer.up();
+                            Main.Drawer.down();
                             controller.refresh();
                         }
                     }
@@ -479,6 +479,28 @@ Window {
     /**
      * Handling de eventos.
      */
+
+    Item {
+        id: keyHandler
+        focus: active
+        Keys.onUpPressed: {
+            Main.Drawer.up();
+            controller.refresh();
+        }
+        Keys.onDownPressed: {
+            Main.Drawer.down();
+            controller.refresh();
+        }
+        Keys.onLeftPressed: {
+            Main.Drawer.left();
+            controller.refresh();
+        }
+        Keys.onRightPressed: {
+            Main.Drawer.right();
+            controller.refresh();
+        }
+
+    }
 
     Connections {
         target: controller

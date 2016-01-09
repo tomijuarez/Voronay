@@ -173,19 +173,19 @@ Drawer.prototype.zoomOut = function() {
 }
 
 Drawer.prototype.up = function() {
-    this.verticalTransformFactor = this.verticalTransformFactor + this.moveFactor;
-}
-
-Drawer.prototype.down = function() {
     this.verticalTransformFactor = this.verticalTransformFactor - this.moveFactor;
 }
 
+Drawer.prototype.down = function() {
+    this.verticalTransformFactor = this.verticalTransformFactor + this.moveFactor;
+}
+
 Drawer.prototype.left = function() {
-    this.horizontalTransformFactor = this.horizontalTransformFactor + this.moveFactor;
+    this.horizontalTransformFactor = this.horizontalTransformFactor - this.moveFactor;
 }
 
 Drawer.prototype.right = function() {
-    this.horizontalTransformFactor = this.horizontalTransformFactor - this.moveFactor;
+    this.horizontalTransformFactor = this.horizontalTransformFactor + this.moveFactor;
 }
 
 var Drawer = new Drawer();
