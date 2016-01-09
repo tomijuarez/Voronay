@@ -76,6 +76,7 @@ void DataManager::reset(){
     this->aristas.clear();
     this->voronoi.clear();
     this->cleanScene();
+    this->draw();
     this->calculada = false;
 }
 

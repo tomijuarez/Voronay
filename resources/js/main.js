@@ -33,7 +33,7 @@ Drawer.prototype.drawAxis = function(){
 
 Drawer.prototype.translateVerticalClick = function(number){
     var resutl = this.translateZoomNumberClick(this.translateVerticalNumberClick(number));
-    return resutl;
+    return -resutl;
 }
 
 Drawer.prototype.translateHorizontalClick = function(number){
@@ -43,7 +43,7 @@ Drawer.prototype.translateHorizontalClick = function(number){
 
 Drawer.prototype.translateVertical = function(number){
     var resutl = this.translateVerticalNumber(this.translateZoomNumberPoint(number));
-    return resutl;
+    return -resutl;
 }
 
 Drawer.prototype.translateHorizontal = function(number){
@@ -62,7 +62,7 @@ Drawer.prototype.translateHorizontalNumberClick = function(number){
 }
 
 Drawer.prototype.translateVerticalNumber = function(number){
-    var resutl = number - this.verticalTransformFactor;
+    var resutl = number + this.verticalTransformFactor;
     return resutl;
 }
 
