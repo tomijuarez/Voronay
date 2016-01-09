@@ -253,21 +253,13 @@ Window {
         Rectangle {
             id: canvasControls
             height: 30
-            width: parent.width - 2
+            width: 70
+            color: "transparent"
 
             anchors {
                 left: parent.left
                 leftMargin: 2
             }
-
-            Row {
-                id: row1
-                x: 0
-                y: 1
-                width: 200
-                height: 28
-                anchors.left: parent.left
-                anchors.verticalCenter: parent.verticalCenter
 
                 Row {
                     id: zoomControls
@@ -327,17 +319,13 @@ Window {
                         }
                     }
                 }
-            }
-        }
+          }
         Canvas {
             id: canvas1
-            x: 0
-            y: 30
             width: parent.width
             height: parent.height - 30
             anchors.left: parent.left
             anchors.bottom: parent.bottom
-            anchors.topMargin: 30
 
 
             /**
@@ -349,8 +337,7 @@ Window {
             renderTarget: Canvas.Image;
             antialiasing: true;
             smooth: true;
-
-            onPaint: {
+            Component.onCompleted: {
                 Main.Drawer.setCanvas(this);
                 Main.Drawer.drawAxis();
             }

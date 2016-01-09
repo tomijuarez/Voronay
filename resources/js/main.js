@@ -3,8 +3,8 @@ function Drawer() {};
 Drawer.prototype.zoomFactor = 0.5;
 Drawer.prototype.zoomTransformFactor = 1;
 Drawer.prototype.moveFactor = 50;
-Drawer.prototype.verticalTransformFactor = 0;
-Drawer.prototype.horizontalTransformFactor = 0;
+Drawer.prototype.verticalTransformFactor = -250;
+Drawer.prototype.horizontalTransformFactor = -350;
 Drawer.prototype.axisScale = 100;
 Drawer.prototype.axisLimit = 7000;
 
