@@ -2,16 +2,18 @@
 #include <QDebug>
 
 void DataManager::initIncrementalAlgorithm() {
-    QPair<double, double> punto1(0,7000);
-    QPair<double, double> punto2(7000,-7000);
-    QPair<double, double> punto3(-7000,-7000);
-    Triangulo triangulo(punto1,punto2,punto3);
-    this->externTriangle = &(triangulo);
-    this->calculada = true;
-    this->triangulate();
-    this->tessellate();
-    this->draw();
-    this->cambio = false;
+    if(this->points.count() > 2){
+        QPair<double, double> punto1(0,7000);
+        QPair<double, double> punto2(7000,-7000);
+        QPair<double, double> punto3(-7000,-7000);
+        Triangulo triangulo(punto1,punto2,punto3);
+        this->externTriangle = &(triangulo);
+        this->calculada = true;
+        this->triangulate();
+        this->tessellate();
+        this->draw();
+        this->cambio = false;
+    }
 }
 
 void DataManager::refresh(){
@@ -97,6 +99,7 @@ void DataManager::tessellate(){
 
 void DataManager::draw(){
     this->cleanScene();
+    this->drawAxis();
     if(this->triangulosActivos){
         this->drawTriangles();
         this->drawPoints();
