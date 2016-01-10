@@ -41,6 +41,12 @@ Window {
     /**
      * Menú lateral izquierdo.
      */
+Rectangle{
+    width:parent.width
+    height:parent.height
+    anchors{
+        centerIn: parent
+    }
 
     Rectangle {
         width: leftMenuWidth
@@ -424,14 +430,36 @@ Window {
                 controller.refresh()
             }
 
+            Keys.onUpPressed: {
+                Main.Drawer.up();
+                controller.refresh();
+            }
+            Keys.onDownPressed: {
+                Main.Drawer.down();
+                controller.refresh();
+            }
+            Keys.onLeftPressed: {
+                Main.Drawer.left();
+                controller.refresh();
+            }
+            Keys.onRightPressed: {
+                Main.Drawer.right();
+                controller.refresh();
+            }
+
+
             MouseArea {
                 anchors.fill: parent;
                 onClicked: {
+                    if(!canvas1.focus){
+                    canvas1.focus = true;
+                    }else{
                     Main.Drawer.repaint();
                     var x = mouseX, y = mouseY;
                     Main.Drawer.drawPoint(x-1,y-1);
-                    console.log("Punto",Main.Drawer.translateHorizontalClick(x-1),Main.Drawer.translateVerticalClick(y-1));
+                    console.log("Punto",Main.Drawer.translateHorizontalClick(x-1)/10,Main.Drawer.translateVerticalClick(y-1)/10);
                     controller.addPoint(Main.Drawer.translateHorizontalClick(x-1),Main.Drawer.translateVerticalClick(y-1));
+                    }
                 }
             }
 
@@ -558,28 +586,6 @@ Window {
      * Handling de eventos.
      */
 
-    Item {
-        id: keyHandler
-        focus: active
-        Keys.onUpPressed: {
-            Main.Drawer.up();
-            controller.refresh();
-        }
-        Keys.onDownPressed: {
-            Main.Drawer.down();
-            controller.refresh();
-        }
-        Keys.onLeftPressed: {
-            Main.Drawer.left();
-            controller.refresh();
-        }
-        Keys.onRightPressed: {
-            Main.Drawer.right();
-            controller.refresh();
-        }
-
-    }
-
     Connections {
         target: controller
 
@@ -598,27 +604,27 @@ Window {
 
         onDrawPoint: {
             Main.Drawer.repaint();
-            Main.Drawer.drawPoint(Main.Drawer.translateHorizontal(x),Main.Drawer.translateVertical(y));
+            Main.Drawer.drawPoint(Main.Drawer.translateHorizontal(x/10),Main.Drawer.translateVertical(y/10));
         }
 
         onDrawTriangle: {
             Main.Drawer.repaint();
-            Main.Drawer.drawTriangle(Main.Drawer.translateHorizontal(x1),Main.Drawer.translateVertical(y1),Main.Drawer.translateHorizontal(x2),Main.Drawer.translateVertical(y2),Main.Drawer.translateHorizontal(x3),Main.Drawer.translateVertical(y3));
+            Main.Drawer.drawTriangle(Main.Drawer.translateHorizontal(x1/10),Main.Drawer.translateVertical(y1/10),Main.Drawer.translateHorizontal(x2/10),Main.Drawer.translateVertical(y2/10),Main.Drawer.translateHorizontal(x3/10),Main.Drawer.translateVertical(y3/10));
         }
 
         onDrawLine: {
             Main.Drawer.repaint();
-            Main.Drawer.drawLine(Main.Drawer.translateHorizontal(x1),Main.Drawer.translateVertical(y1),Main.Drawer.translateHorizontal(x2),Main.Drawer.translateVertical(y2));
+            Main.Drawer.drawLine(Main.Drawer.translateHorizontal(x1/10),Main.Drawer.translateVertical(y1/10),Main.Drawer.translateHorizontal(x2/10),Main.Drawer.translateVertical(y2/10));
         }
 
         onDrawCircle: {
             Main.Drawer.repaint();
-            Main.Drawer.drawCircle(Main.Drawer.translateHorizontal(x),Main.Drawer.translateVertical(y),Main.Drawer.translateZoomNumberPoint(radius));
+            Main.Drawer.drawCircle(Main.Drawer.translateHorizontal(x/10),Main.Drawer.translateVertical(y/10),Main.Drawer.translateZoomNumberPoint(radius/10));
         }
 
         onDrawPaintedCircle: {
             Main.Drawer.repaint();
-            Main.Drawer.drawPaintedCircle(Main.Drawer.translateHorizontal(x),Main.Drawer.translateVertical(y),Main.Drawer.translateZoomNumberPoint(radius));
+            Main.Drawer.drawPaintedCircle(Main.Drawer.translateHorizontal(x/10),Main.Drawer.translateVertical(y/10),Main.Drawer.translateZoomNumberPoint(radius));
         }
 
         onDrawAxis: {
@@ -626,4 +632,5 @@ Window {
             Main.Drawer.drawAxis();
         }
     }
+ }
 }
