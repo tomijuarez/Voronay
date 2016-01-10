@@ -129,7 +129,7 @@ Rectangle{
 
                     onClicked: {
                         Main.Drawer.drawPoint(inputX.text,inputY.text);
-                        controller.addPoint(inputX.text,inputY.text);
+                        controller.addPoint(inputX.text * 10,inputY.text * 10);
                     }
                 }
             }
@@ -446,8 +446,15 @@ Rectangle{
                 Main.Drawer.right();
                 controller.refresh();
             }
-
-
+            Keys.onPressed: {
+                if(event.key == Qt.Key_Minus){
+                    Main.Drawer.zoomOut();
+                    controller.refresh();
+                }else if(event.key == Qt.Key_Plus){
+                    Main.Drawer.zoomIn();
+                    controller.refresh();
+                }
+            }
             MouseArea {
                 anchors.fill: parent;
                 onClicked: {
