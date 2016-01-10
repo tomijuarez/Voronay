@@ -3,9 +3,9 @@
 
 void DataManager::initIncrementalAlgorithm() {
     if(this->points.count() > 2){
-        QPair<double, double> punto1(0,7000);
-        QPair<double, double> punto2(7000,-7000);
-        QPair<double, double> punto3(-7000,-7000);
+        QPair<double, double> punto1(0,70000);
+        QPair<double, double> punto2(70000,-70000);
+        QPair<double, double> punto3(-70000,-70000);
         Triangulo triangulo(punto1,punto2,punto3);
         this->externTriangle = &(triangulo);
         this->calculada = true;

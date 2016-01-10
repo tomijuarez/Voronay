@@ -1,6 +1,6 @@
 function Drawer() {};
 
-Drawer.prototype.zoomFactor = 0.5;
+Drawer.prototype.zoomFactor = 0.1;
 Drawer.prototype.zoomTransformFactor = 1;
 Drawer.prototype.moveFactor = 50;
 Drawer.prototype.verticalTransformFactor = -250;
@@ -8,8 +8,12 @@ Drawer.prototype.horizontalTransformFactor = -350;
 Drawer.prototype.axisScale = 100;
 Drawer.prototype.axisLimit = 7000;
 
+Drawer.prototype.oneDecimal = function(number){
+    return (Math.round( number * 10 ) / 10);
+}
+
 Drawer.prototype.drawAxis = function(){
-    var context = this.getContext();
+    var context = this.getContext("2d");
     var fontSize = Math.floor(25/this.zoomTransformFactor);
     context.font= fontSize.toString() + "px Georgia";
     context.textAlign = "center";
@@ -33,12 +37,12 @@ Drawer.prototype.drawAxis = function(){
 
 Drawer.prototype.translateVerticalClick = function(number){
     var resutl = this.translateZoomNumberClick(this.translateVerticalNumberClick(number));
-    return -resutl;
+    return this.oneDecimal(-resutl) * 10;
 }
 
 Drawer.prototype.translateHorizontalClick = function(number){
     var resutl = this.translateZoomNumberClick(this.translateHorizontalNumberClick(number));
-    return resutl;
+    return this.oneDecimal(resutl) *10;
 }
 
 Drawer.prototype.translateVertical = function(number){
@@ -96,11 +100,6 @@ Drawer.prototype.repaint = function() {
 Drawer.prototype.clear = function() {
     var context = this.getContext();
     context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-}
-
-Drawer.prototype.applyAxisTransformation = function() {
-    var context = this.getContext();
-    context.transform(1, 0, 0, -1, 0, this.canvas.height);
 }
 
 Drawer.prototype.drawTriangle = function(x1, y1, x2, y2, x3, y3) {
@@ -163,13 +162,15 @@ Drawer.prototype.drawPoint = function(x,y) {
 }
 
 Drawer.prototype.zoomIn = function() {
-    var context = this.getContext();
-    this.zoomTransformFactor = this.zoomTransformFactor - this.zoomFactor;
+    if(this.zoomFactor < this.zoomTransformFactor){
+    this.zoomTransformFactor = this.oneDecimal(this.zoomTransformFactor - this.zoomFactor);
+    }
+    console.log("factor:",this.zoomTransformFactor);
 }
 
 Drawer.prototype.zoomOut = function() {
-    var context = this.getContext();
-    this.zoomTransformFactor = this.zoomTransformFactor + this.zoomFactor;
+    this.zoomTransformFactor = this.oneDecimal(this.zoomTransformFactor + this.zoomFactor);
+    console.log("factor:",this.zoomTransformFactor);
 }
 
 Drawer.prototype.up = function() {
