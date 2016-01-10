@@ -28,11 +28,10 @@ void NodoGrafo::setProcesado(bool value){
 
 void NodoGrafo::clear(){
     delete this->triangulo;
+    this->hijos.clear();
 }
 
 NodoGrafo::~NodoGrafo(){
-    delete this->triangulo;
-    this->hijos.clear();
 }
 
 
