@@ -52,7 +52,14 @@ Circunscripta::Circunscripta(QPair<double, double> punto1, QPair<double, double>
           this->centro = this->interseccion(pendienteM12,pendienteM23,b12,b23);
       }else if(pendienteM13 != 0.0 && pendienteM23 != 0.0){
           this->centro = this->interseccion(pendienteM13,pendienteM23,b13,b23);
-      }else{
+      }else if(pendienteM12 != 0.0){
+          this->centro = medio12;
+      }else if(pendienteM13 != 0.0){
+          this->centro = medio13;
+      }else if(pendienteM23 != 0.0){
+          this->centro = medio23;
+      }
+      else{
           qDebug() << "No se pudo calcular el circuncentro";
           this->centro.first = 0.0;
           this->centro.second = 0.0;
