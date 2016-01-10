@@ -2,9 +2,10 @@ import QtQuick 2.3
 import QtQuick.Window 2.2
 
 
-import "./resources/js/main.js" as Main;
+import "qrc:///resources/js/main.js" as Main;
 
 Window {
+
     id: window1
 
     property bool sameScene: false
@@ -81,7 +82,7 @@ Window {
                         centerIn: parent
                     }
 
-                    font.pointSize: 12
+                    font.pointSize: 11
                     text: "Triangulación de Delaunay"
                     color: "white"
                 }
@@ -103,6 +104,84 @@ Window {
                     top: parent.top
                     left: parent.left
                     topMargin: 150
+                    leftMargin: 10
+                }
+
+                Text {
+                    anchors {
+                        horizontalCenter: parent.horizontalCenter
+                        centerIn: parent
+                    }
+
+                    font.pointSize: 12
+                    text: "Agregar Punto"
+                    color: "white"
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+
+                    onClicked: {
+                        Main.Drawer.drawPoint(inputX.text,inputY.text);
+                        controller.addPoint(inputX.text,inputY.text);
+                    }
+                }
+            }
+
+            Rectangle {
+                width: 200
+                height: 40
+                color: "transparent"
+                anchors {
+                    top: parent.top
+                    left: parent.left
+                    topMargin: 200
+                    leftMargin: 10
+                }
+
+                       Rectangle{
+                           color:flatBlue
+                           width:90
+                           height:40
+                           anchors{
+                           left: parent.left
+                           }
+
+                           TextInput {
+                               id:inputX
+                               focus: true
+                               anchors.centerIn: parent
+                               font.pointSize: 14
+                               text:"000"
+                               validator: DoubleValidator { decimals:2}
+                           }
+                       }
+
+                       Rectangle{
+                           width:90
+                           height:40
+                           color:flatBlue
+                           x:110
+
+                           TextInput {
+                               id:inputY
+                               focus: true
+                               anchors.centerIn: parent
+                               font.pointSize: 14
+                               text:"000"
+                               validator: DoubleValidator { decimals:2}
+                           }
+                       }
+                    }
+
+            Rectangle {
+                width: 200
+                height: 40
+                color: flatBlue
+                anchors {
+                    top: parent.top
+                    left: parent.left
+                    topMargin: 300
                     leftMargin: 10
                 }
 
@@ -137,7 +216,7 @@ Window {
                 anchors {
                     top: parent.top
                     left: parent.left
-                    topMargin: 200
+                    topMargin: 250
                     leftMargin: 10
                 }
 
@@ -275,7 +354,6 @@ Window {
                         radius: 3
 
                         anchors {
-                            left: parent.left
                             leftMargin: 3
                         }
 
@@ -339,7 +417,7 @@ Window {
             smooth: true;
             Component.onCompleted: {
                 Main.Drawer.setCanvas(this);
-                Main.Drawer.drawAxis();
+
             }
 
             onCanvasSizeChanged: {
