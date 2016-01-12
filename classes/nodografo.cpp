@@ -4,6 +4,8 @@
 NodoGrafo::NodoGrafo(Triangulo * t){
     this->triangulo = t;
     this->procesado = false;
+    this->sigHoja =  NULL;
+    this->antHoja = NULL;
 }
 
 Triangulo * NodoGrafo::getTriangulo(){
@@ -33,6 +35,25 @@ void NodoGrafo::clear(){
 
 NodoGrafo::~NodoGrafo(){
 }
+
+NodoGrafo *NodoGrafo::getSigHoja() const{
+    return sigHoja;
+}
+
+void NodoGrafo::setSigHoja(NodoGrafo *value){
+    sigHoja = value;
+}
+
+NodoGrafo *NodoGrafo::getAntHoja() const
+{
+    return antHoja;
+}
+
+void NodoGrafo::setAntHoja(NodoGrafo *value)
+{
+    antHoja = value;
+}
+
 
 
 

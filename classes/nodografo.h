@@ -21,11 +21,19 @@ public:
     }
 
     ~NodoGrafo();
+    NodoGrafo *getSigHoja() const;
+    void setSigHoja(NodoGrafo *value);
+
+    NodoGrafo *getAntHoja() const;
+    void setAntHoja(NodoGrafo *value);
+
 private:
     Triangulo * triangulo;
     QList<NodoGrafo*> hijos;
     bool procesado; // al momento de listar las hojas nos sirve para no listarlo doble en caso de
                     //ser apuntado por mas de un nodo
+    NodoGrafo * sigHoja;
+    NodoGrafo * antHoja;
 };
 
 #endif // NODOGRAFO_H

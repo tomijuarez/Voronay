@@ -52,9 +52,7 @@ void DataManager::addPoint(double x, double y) {
     this->cambio = true;
     if(this->calculada){
         this->delaunay.agregarPunto(punto);
-        this->triangulation = this->delaunay.triangular();
-        GrafoHistorico * grafoDelaunay = this->delaunay.getGrafoHistorico();
-        this->voronoi.calcular(grafoDelaunay);
+        this->voronoi.calcular(this->delaunay.getGrafoHistorico(),this->delaunay.getListaTriangulos(),this->delaunay.getP1(),this->delaunay.getP2(),this->delaunay.getP3());
         this->aristas = this->voronoi.getAristas();
         this->circuncentros = this->voronoi.getCircuncentros();
         this->circunscriptas = this->voronoi.getCircunscriptas();
@@ -84,14 +82,14 @@ void DataManager::triangulate() {
     if (this->cambio) {
         this->delaunay.setTrianguloExterior(this->externTriangle);
         this->delaunay.setPuntos(this->points);
-        this->triangulation = this->delaunay.triangular();
+        this->delaunay.triangular();
     }
 }
 
 void DataManager::tessellate(){
     if(this->cambio){
-        GrafoHistorico * grafoDelaunay = this->delaunay.getGrafoHistorico();
-        this->voronoi.calcular(grafoDelaunay);
+        this->voronoi.calcular(this->delaunay.getGrafoHistorico(),this->delaunay.getListaTriangulos(),this->delaunay.getP1(),this->delaunay.getP2(),this->delaunay.getP3());
+        this->aristas = this->voronoi.getAristas();
         this->aristas = voronoi.getAristas();
         this->circuncentros = this->voronoi.getCircuncentros();
         this->circunscriptas = this->voronoi.getCircunscriptas();
@@ -139,12 +137,20 @@ void DataManager::drawCircunscriptas() {
 }
 
 void DataManager::drawTriangles() {
-    foreach(Triangulo * triangle, this->triangulation) {
-        QList<QPair<double, double>> vertices = triangle->getVertices();
-        QPair<double,double> vertice1 = vertices.at(0);
-        QPair<double,double> vertice2 = vertices.at(1);
-        QPair<double,double> vertice3 = vertices.at(2);
-        this->drawTriangle(vertice1.first, vertice1.second, vertice2.first, vertice2.second, vertice3.first, vertice3.second);
-    }
+        NodoGrafo * actual = this->delaunay.getListaTriangulos();
+        while(actual != NULL){
+            if(actual->getTriangulo()->contienePunto(this->delaunay.getP1()) ||
+               actual->getTriangulo()->contienePunto(this->delaunay.getP2()) ||
+               actual->getTriangulo()->contienePunto(this->delaunay.getP3())){
+
+            }else{
+                QList<QPair<double, double>> vertices = actual->getTriangulo()->getVertices();
+                QPair<double,double> vertice1 = vertices.at(0);
+                QPair<double,double> vertice2 = vertices.at(1);
+                QPair<double,double> vertice3 = vertices.at(2);
+                this->drawTriangle(vertice1.first, vertice1.second, vertice2.first, vertice2.second, vertice3.first, vertice3.second);
+            }
+            actual = actual->getSigHoja();
+        }
 }
 

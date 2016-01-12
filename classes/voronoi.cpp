@@ -27,11 +27,12 @@ void Voronoi::agregarArista(QPair<double, double> punto1, QPair<double, double> 
     this->aristas.push_back(linea);
 }
 
-void Voronoi::calcular(GrafoHistorico *grafoDelaunay){
+void Voronoi::calcular(GrafoHistorico * grafoDelaunay,NodoGrafo * listaTriangulos,QPair<double,double> p1,QPair<double,double> p2,QPair<double,double> p3){
     this->aristas.clear();
     this->circuncentros.clear();
     this->circunscriptas.clear();
-    QList<Triangulo*> triangulos = grafoDelaunay->listarHojas();
+    NodoGrafo * actual = listaTriangulos;
+    Triangulo * triangulo = NULL;
     QPair<double, double> puntoMedioArista;
     QList<QPair<QPair<double, double>, QPair<double,double> > > aristas;
     QPair<QPair<double, double>, QPair<double, double> > arista;
@@ -43,36 +44,43 @@ void Voronoi::calcular(GrafoHistorico *grafoDelaunay){
     Circunscripta * circunscripta;
 
 
-    foreach (Triangulo * triangulo, triangulos) {
-        this->circunscriptas.append(triangulo->getCircunscripta());
-        this->circuncentros.append(triangulo->getCircunscripta()->getCentro());
-        aristas = triangulo->getAristas();
-        for ( int i = 0; i < aristas.size(); i++) {
-            arista = aristas.at(i);
-            puntoMedioArista = this->midPoint(arista);
+    while(actual != NULL) {
+        triangulo = actual->getTriangulo();
+        if(triangulo->contienePunto(p1) || triangulo->contienePunto(p2) || triangulo->contienePunto(p3)){
+            //qDebug() << "Voronoi: el triangulo tiene un punto del exterior";
+           }
+        else{
+            this->circunscriptas.append(triangulo->getCircunscripta());
+            this->circuncentros.append(triangulo->getCircunscripta()->getCentro());
+            aristas = triangulo->getAristas();
+            for ( int i = 0; i < aristas.size(); i++) {
+                arista = aristas.at(i);
+                puntoMedioArista = this->midPoint(arista);
 
-            grafoDelaunay->encontrarContienePunto(puntoMedioArista);
+                grafoDelaunay->encontrarContienePunto(puntoMedioArista);
 
-            nodo1 = grafoDelaunay->getPrimero();
-            nodo2 = grafoDelaunay->getSegundo();
+                nodo1 = grafoDelaunay->getPrimero();
+                nodo2 = grafoDelaunay->getSegundo();
 
-            if(nodo1 != NULL && nodo2 != NULL){
-                adyacente = nodo1->getTriangulo();
+                if(nodo1 != NULL && nodo2 != NULL){
+                    adyacente = nodo1->getTriangulo();
 
-                if ( adyacente == triangulo )
-                    adyacente = nodo2->getTriangulo();
+                    if ( adyacente == triangulo )
+                        adyacente = nodo2->getTriangulo();
 
-                circunscripta = triangulo->getCircunscripta();
+                    circunscripta = triangulo->getCircunscripta();
 
-                punto1 = circunscripta->getCentro();
+                    punto1 = circunscripta->getCentro();
 
-                circunscripta = adyacente->getCircunscripta();
+                    circunscripta = adyacente->getCircunscripta();
 
-                punto2 = circunscripta->getCentro();
+                    punto2 = circunscripta->getCentro();
 
-                this->agregarArista(punto1, punto2);
-            }else{qDebug() << "Voronoi: no pudo encontrar adyacente";}
-        }
+                    this->agregarArista(punto1, punto2);
+                }else{qDebug() << "Voronoi: no pudo encontrar adyacente";}
+            }
+           }
+          actual = actual->getSigHoja();
     }
 }
 

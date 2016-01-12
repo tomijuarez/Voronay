@@ -125,10 +125,6 @@ void GrafoHistorico::clear(){
     this->procesados.clear();
 }
 
-void GrafoHistorico::informarCambio(){
-    this->calculado = false;
-}
-
 void GrafoHistorico::limpiar(NodoGrafo * nodo){
     if(!nodo->getProcesado()){
         nodo->setProcesado(true);
@@ -137,59 +133,6 @@ void GrafoHistorico::limpiar(NodoGrafo * nodo){
         this->procesados.append(nodo);
         foreach(nodoAux,nodos){
                this->limpiar(nodo);
-        }
-    }
-}
-
-QList<Triangulo*> GrafoHistorico::listarHojas(){
-    if(!this->calculado){
-        this->listaHojas.clear();
-        //qDebug() << " Listando Grafo";
-        this->listar(this->raiz);
-        QList<NodoGrafo *> nodos = this->procesados;
-        NodoGrafo * nodo;
-        foreach(nodo,nodos){
-            nodo->setProcesado(false);
-        }
-        //qDebug() << "La triangulacion tiene:";
-        //qDebug() << this->listaHojas.count();
-        this->calculado = true;
-     }
-     return this->listaHojas;
-}
-
-void GrafoHistorico::listar(NodoGrafo *nodo){
-    if(nodo->getHijos().count() != 0){ //no es una hoja
-
-        QList<NodoGrafo*> hijos = nodo->getHijos();
-        NodoGrafo * hijo;
-//        qDebug() << "No es hoja";
-//        nodo->getTriangulo()->imprimir();
-//        qDebug() << "Hijos";
-//        foreach (hijo, hijos) {
-//            hijo->getTriangulo()->imprimir();
-//        }
-        foreach (hijo, hijos) {
-            this->listar(hijo);
-        }
-    }
-    else{ //es una hoja
-//        qDebug() << "Es hoja";
-//        nodo->getTriangulo()->imprimir();
-        if(!nodo->getProcesado()){
-            if(!nodo->getTriangulo()->contienePunto(this->p1)
-            && !nodo->getTriangulo()->contienePunto(this->p2)
-            && !nodo->getTriangulo()->contienePunto(this->p3)){
-                nodo->setProcesado(true);
-                this->procesados.append(nodo);
-                this->listaHojas.append(nodo->getTriangulo());
-                nodo->getTriangulo()->imprimir();
-            }else{
-                //qDebug() << "Grafo Historico: El triangulo contiene un vertice del triangulo exterior";
-            }
-        }else{
-             //qDebug() << "Grafo Historico: Ya fue procesado antes";
-            //nodo->setProcesado(false);
         }
     }
 }

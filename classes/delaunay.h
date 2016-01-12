@@ -12,7 +12,7 @@ public:
     Delaunay();
     Delaunay(QList<QPair<double, double> > puntos, Triangulo *trianguloExterior);
     ~Delaunay();
-    QList<Triangulo*> triangular();
+    void triangular();
     void resetear();
     QList<QPair<double, double> > getPuntos() const;
     void agregarPunto(QPair<double,double> punto);
@@ -24,6 +24,14 @@ public:
     //Para utilizar con Voronoi
     //(Muy complejo crear copia del objeto, no utilizar funcion resetear() desde fuera
     GrafoHistorico *getGrafoHistorico() const;
+
+    QPair<double, double> getP1() const;
+
+    QPair<double, double> getP2() const;
+
+    QPair<double, double> getP3() const;
+
+    NodoGrafo *getListaTriangulos() const;
 
 private:
     void insertarVertice(QPair<double, double> punto);
@@ -42,6 +50,10 @@ private:
     Triangulo * trianguloExterior;
 
     bool calculada;
+    QPair<double,double> p1;
+    QPair<double,double> p2;
+    QPair<double,double> p3;
+    NodoGrafo * listaTriangulos;
 };
 
 #endif // DELAUNAY_H

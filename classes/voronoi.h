@@ -14,7 +14,7 @@ class Voronoi
 public:
     Voronoi();
     ~Voronoi();
-    void calcular(GrafoHistorico * grafoDelaunay);
+    void calcular(GrafoHistorico *grafoDelaunay, NodoGrafo *listaTriangulos, QPair<double, double> p1, QPair<double, double> p2, QPair<double, double> p3);
     QList<QPair<QPair<double, double>, QPair<double, double> > > getAristas();
     QList<QPair<double,double> > getCircuncentros();
     QList<Circunscripta *> getCircunscriptas();
