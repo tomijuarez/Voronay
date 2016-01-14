@@ -13,9 +13,6 @@ void DataManager::initIncrementalAlgorithm() {
         this->tessellate();
         this->draw();
         this->cambio = false;
-
-        this->centroides = centroides = this->voronoi.getCentroides();
-        this->drawCenterOfMass();
     }
 }
 
@@ -96,6 +93,7 @@ void DataManager::tessellate(){
         this->aristas = voronoi.getAristas();
         this->circuncentros = this->voronoi.getCircuncentros();
         this->circunscriptas = this->voronoi.getCircunscriptas();
+        this->centroides = this->voronoi.getCentroides();
     }
 }
 
@@ -113,6 +111,7 @@ void DataManager::draw(){
         }
         if(this->voronoiActivo){
             this->drawLines();
+            this->drawCenterOfMass();
         }
     }
 }
