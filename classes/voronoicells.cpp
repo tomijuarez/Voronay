@@ -262,25 +262,25 @@ QList<QPair<double,double> > VoronoiCells::centroides(QList<QPair<double,double>
     Arista a14;
     Arista a15;
     Arista a16;
-    Arista a17;
+//    Arista a17;
 
     a1.setPuntos(p1,p2);
-    a2.setPuntos(p2,p3);
-    a3.setPuntos(p4,p5);
-    a4.setPuntos(p6,p7);
-    a5.setPuntos(p8,p9);
-    a6.setPuntos(p10,p11);
-    a7.setPuntos(p12,p13);
-    a8.setPuntos(p14,p15);
-    a9.setPuntos(p16,p17);
-    a10.setPuntos(p18,p19);
-    a11.setPuntos(p20,p21);
-    a12.setPuntos(p22,p23);
-    a13.setPuntos(p24,p25);
-    a14.setPuntos(p26,p27);
-    a15.setPuntos(p28,p29);
-    a16.setPuntos(p30,p31);
-    a17.setPuntos(p32,p33);
+    a2.setPuntos(p3,p4);
+    a3.setPuntos(p5,p6);
+    a4.setPuntos(p7,p8);
+    a5.setPuntos(p9,p10);
+    a6.setPuntos(p11,p12);
+    a7.setPuntos(p13,p14);
+    a8.setPuntos(p15,p16);
+    a9.setPuntos(p17,p18);
+    a10.setPuntos(p19,p20);
+    a11.setPuntos(p21,p22);
+    a12.setPuntos(p23,p24);
+    a13.setPuntos(p25,p26);
+    a14.setPuntos(p27,p28);
+    a15.setPuntos(p29,p30);
+    a16.setPuntos(p31,p32);
+//    a17.setPuntos(p32,p33);
 
     edges.push_back(a1);
     edges.push_back(a2);
@@ -298,8 +298,9 @@ QList<QPair<double,double> > VoronoiCells::centroides(QList<QPair<double,double>
     edges.push_back(a14);
     edges.push_back(a15);
     edges.push_back(a16);
-    edges.push_back(a17);
+//    edges.push_back(a17);
 
+    points.push_back(p33);
     points.push_back(p34);
     points.push_back(p35);
     points.push_back(p36);
