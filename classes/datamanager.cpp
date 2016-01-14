@@ -69,6 +69,7 @@ void DataManager::reset(){
     this->points.clear();
     this->circuncentros.clear();
     this->circunscriptas.clear();
+    this->centroides.clear();
     this->triangulation.clear();
     this->delaunay.resetear();
     this->aristas.clear();
