@@ -32,6 +32,7 @@ class DataManager : public QObject {
         void changeDrawVoronoi();
 
     private:
+        void drawCenterOfMass();
         void triangulate();
         void tessellate();
         void draw();
@@ -41,6 +42,7 @@ class DataManager : public QObject {
         void drawCircuncentros();
         void drawCircunscriptas();
 
+        QList<QPair<double,double> > centroides;
         Delaunay delaunay;
         Voronoi voronoi;
         Triangulo * externTriangle;

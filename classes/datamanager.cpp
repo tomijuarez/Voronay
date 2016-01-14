@@ -13,6 +13,9 @@ void DataManager::initIncrementalAlgorithm() {
         this->tessellate();
         this->draw();
         this->cambio = false;
+
+        this->centroides = centroides = this->voronoi.getCentroides();
+        this->drawCenterOfMass();
     }
 }
 
@@ -111,6 +114,13 @@ void DataManager::draw(){
         if(this->voronoiActivo){
             this->drawLines();
         }
+    }
+}
+
+void DataManager::drawCenterOfMass() {
+    QPair<double,double> point;
+    foreach(point,this->centroides) {
+        this->drawPoint(point.first,point.second);
     }
 }
 

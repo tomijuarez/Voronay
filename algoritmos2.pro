@@ -11,7 +11,8 @@ SOURCES += main.cpp \
     classes/voronoi.cpp \
     classes/grafohistorico.cpp \
     classes/nodografo.cpp \
-    classes/arista.cpp
+    classes/arista.cpp \
+    classes/voronoicells.cpp
 
 
 RESOURCES += qml.qrc
@@ -30,5 +31,6 @@ HEADERS += \
     classes/voronoi.h \
     classes/grafohistorico.h \
     classes/nodografo.h \
-    classes/arista.h
+    classes/arista.h \
+    classes/voronoicells.h
 

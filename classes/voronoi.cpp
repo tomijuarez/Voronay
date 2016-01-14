@@ -77,6 +77,9 @@ void Voronoi::calcular(GrafoHistorico * grafoDelaunay,NodoGrafo * listaTriangulo
                     punto2 = circunscripta->getCentro();
 
                     this->agregarArista(punto1, punto2);
+                    Arista arista;
+                    arista.setPuntos(punto1, punto2);
+                    this->aristasVoronoi.push_back(arista);
                 }else{qDebug() << "Voronoi: no pudo encontrar adyacente";}
             }
            }
@@ -86,6 +89,11 @@ void Voronoi::calcular(GrafoHistorico * grafoDelaunay,NodoGrafo * listaTriangulo
 
 void Voronoi::clear() {
     this->aristas.clear();
+}
+
+QList<QPair<double, double> > Voronoi::getCentroides() {
+    this->centroides = this->celdas.centroides(this->circuncentros, this->aristasVoronoi);
+    return this->centroides;
 }
 
 Voronoi::~Voronoi() {
