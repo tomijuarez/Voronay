@@ -6,6 +6,8 @@
 
 GrafoHistorico::GrafoHistorico(Triangulo * t){
     this->raiz = new NodoGrafo(t);
+    this->primero = NULL;
+    this->segundo = NULL;
 }
 
 bool GrafoHistorico::encontrarContienePunto(QPair<float, float> punto){
