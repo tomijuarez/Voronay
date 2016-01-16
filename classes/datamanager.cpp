@@ -34,15 +34,16 @@ void DataManager::reset() {
 }
 
 void DataManager::triangulate() {
-    if ( this->cambio ) {
+
         this->delaunay.setTrianguloExterior(this->externTriangle);
         this->delaunay.setPuntos(this->points);
         this->drawTriangles(this->delaunay.triangular());
-    }
+
     this->cambio = false;
 }
 
 void DataManager::drawTriangles(QList<Triangulo *> triangulos) {
+    this->cleanScene();
     foreach(Triangulo * triangulo, triangulos) {
         QList<QPair<float, float>> vertices = triangulo->getVertices();
         QPair<float,float> vertice1 = vertices.at(0);
