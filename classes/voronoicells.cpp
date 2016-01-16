@@ -14,16 +14,16 @@ double VoronoiCells::area_for_polygon(QList<QPair<double,double> > polygon) {
     double result = 0;
     double imax = polygon.size() - 1;
     for ( int i = 0; i < imax; i++ ) {
-        qDebug() << "Resta: " << polygon.at(i) << " - " << polygon.at(i+1);
+        //qDebug() << "Resta: " << polygon.at(i) << " - " << polygon.at(i+1);
         result += (polygon.at(i).first * polygon.at(i+1).second) - (polygon.at(i+1).first * polygon.at(i).second);
     }
-    qDebug() << "Resta: " << polygon.at(imax) << " - " << polygon.at(0);
+    //qDebug() << "Resta: " << polygon.at(imax) << " - " << polygon.at(0);
 
     result += (polygon.at(imax).first * polygon.at(0).second) - (polygon.at(0).first * polygon.at(imax).second);
 
     double div = 2;
-    qDebug() << "@@@@@@@";
-    qDebug() << result/div;
+    //qDebug() << "@@@@@@@";
+    //qDebug() << result/div;
     return result / div;
 }
 
@@ -45,8 +45,8 @@ QPair<double,double> VoronoiCells::centroid_for_polygon(QList<QPair<double,doubl
     result_x = result_x / (area * 6.0);
     result_y = result_y / (area * 6.0);
 
-    qDebug() << "********";
-    qDebug() << "(" << result_x << "," << result_y << ")";
+    //qDebug() << "********";
+    //qDebug() << "(" << result_x << "," << result_y << ")";
 
     return QPair<double,double>(result_x, result_y);
 
@@ -147,7 +147,7 @@ QPair<double,double> VoronoiCells::midPoint(Arista arista) {
  */
 
 bool VoronoiCells::counterClockWise(QPair<double,double> A, QPair<double,double> B, QPair<double,double> C) {
-    return ((C.second + A.second)*(B.first - A.first)) > ((B.second - A.second)*(C.first - A.first));
+    return ((C.second - A.second)*(B.first - A.first)) > ((B.second - A.second)*(C.first - A.first));
 }
 
 /**
@@ -166,6 +166,7 @@ bool VoronoiCells::intersects(Arista arista1, Arista arista2) {
 }
 
 QList<QPair<double,double>> VoronoiCells::polygonPoints(QList<Arista> edges) {
+        qDebug() << " - ";
         QSet<QPair<double,double> > point_set;
 
         Arista arista;
@@ -180,7 +181,13 @@ QList<QPair<double,double>> VoronoiCells::polygonPoints(QList<Arista> edges) {
         foreach (punto, point_set)
             puntos.push_back(punto);
 
+        foreach(punto, point_set) {
+            qDebug() << ">#" << punto;
+        }
+
         return puntos;
+
+        qDebug() << " - ";
 }
 
 QList<QPair<double,double> > VoronoiCells::centroides(QList<QPair<double,double> > pointes, QList<Arista> edgees) {
@@ -314,6 +321,7 @@ QList<QPair<double,double> > VoronoiCells::centroides(QList<QPair<double,double>
     QList<QPair<double,double> > convexHull;
 
     for(int i = 0; i < points.size(); i++) {
+        qDebug() << "!!!!!!!!!!!";
         QList<Arista> cell_edges;
         for(int j = 0; j < edges.size(); j++) {
             bool is_cell_edge = true;
@@ -327,6 +335,7 @@ QList<QPair<double,double> > VoronoiCells::centroides(QList<QPair<double,double>
             }
 
             if (is_cell_edge) {
+                qDebug() << "ENTRA ACÄ " << edges[j].getInicio() << " ; " << edges[j].getFin();
                 cell_edges.push_back(edges[j]);
             }
         }
