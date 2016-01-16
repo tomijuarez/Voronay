@@ -2,12 +2,18 @@
 #include "triangulo.h"
 #include "nodografo.h"
 #include <QList>
+#include <QPair>
 #include <QDebug>
 
 GrafoHistorico::GrafoHistorico(Triangulo * t){
     this->raiz = new NodoGrafo(t);
     this->primero = NULL;
     this->segundo = NULL;
+    QList<QPair<float,float> > vertices = t->getVertices();
+    this->p1 = vertices.at(0);
+    this->p2 = vertices.at(1);
+    this->p3 = vertices.at(2);
+
 }
 
 bool GrafoHistorico::encontrarContienePunto(QPair<float, float> punto){
@@ -121,9 +127,14 @@ void GrafoHistorico::listar(NodoGrafo *nodo){
 //        qDebug() << "Es hoja";
 //        nodo->getTriangulo()->imprimir();
         if(!nodo->getProcesado()){
-            nodo->setProcesado(true);
-            this->listaHojas.append(nodo->getTriangulo());
-            nodo->getTriangulo()->imprimir();
+            if(!nodo->getTriangulo()->contienePunto(this->p1)
+            && !nodo->getTriangulo()->contienePunto(this->p2)
+            && !nodo->getTriangulo()->contienePunto(this->p3)){
+                nodo->setProcesado(true);
+                this->listaHojas.append(nodo->getTriangulo());
+                nodo->getTriangulo()->imprimir();
+            }else
+                qDebug() << "El triangulo contiene un vertice del triangulo exterior";
         }else{
 //            qDebug() << "Ya fue procesado antes";
             //nodo->setProcesado(false);
