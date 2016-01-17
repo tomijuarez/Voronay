@@ -6,7 +6,6 @@
 #include <QSet>
 #include <QDebug>
 #include <qmath.h>
-
 #include "arista.h"
 
 class VoronoiCells
@@ -25,7 +24,10 @@ private:
     QPair<double,double> midPoint(Arista arista);
     bool counterClockWise(QPair<double,double> A, QPair<double,double> B, QPair<double,double> C);
     bool intersects(Arista arista1, Arista arista2);
-    QList<QPair<double,double>> polygonPoints(QList<Arista> edges);
+    QList<QPair<double,double> > polygonPoints(QList<Arista> edges);
+    void interseccionLimite(QList<Arista> limites, QList<Arista> & aristas);
+    QPair<double,double> intersection(Arista lado1, Arista lado2);
+
 };
 
 #endif // VORONOICELLS_H
