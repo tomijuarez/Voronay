@@ -91,11 +91,6 @@ void Voronoi::clear() {
     this->aristas.clear();
 }
 
-QList<QPair<double, double> > Voronoi::getCentroides() {
-    this->centroides = this->celdas.centroides(this->circuncentros, this->aristasVoronoi);
-    return this->centroides;
-}
-
 Voronoi::~Voronoi() {
 
 }

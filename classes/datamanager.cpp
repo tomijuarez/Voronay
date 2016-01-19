@@ -94,7 +94,6 @@ void DataManager::tessellate(){
         this->aristas = voronoi.getAristas();
         this->circuncentros = this->voronoi.getCircuncentros();
         this->circunscriptas = this->voronoi.getCircunscriptas();
-        this->centroides = this->voronoi.getCentroides();
     }
 }
 

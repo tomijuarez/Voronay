@@ -14,30 +14,23 @@ public:
     QPair<double,double> getInicio();
     QPair<double,double> getFin();
 
-    void limitarAInterseccion(Arista limite) {
-        double limit = 500;
+    void limitarAInterseccion(Arista limite, Arista & nueva) {
 
+        nueva.setPuntos(this->getInicio(),this->getFin());
         QPair<double,double> interseccion;
 
         if (this->intersecta(limite)) {
             interseccion = this->getPuntoInterseccion(limite);
 
-            qDebug() << "LA LINEA " << this->getInicio() << " , " << this->getFin() << " SE INTERSECA CON LA LINEA " << limite.getInicio() << " , " << limite.getFin();
-
-            qDebug() << "EN EL PUNTO " << interseccion;
-
-            if (fabs(this->getInicio().first) >= limit || fabs(this->getInicio().second) >= limit) {
-                qDebug() << this->getInicio().first << " , " << this->getInicio().second << " >= " << limit;
-                this->inicio = interseccion;
+            if (fabs(this->getInicio().first) >= 500 || fabs(this->getInicio().second) >= 500) {
+                nueva.setPuntos(interseccion,this->getFin());
             }
             else
-                if(fabs(this->getFin().first) >= limit || fabs(this->getFin().second) >= limit) {
-                    qDebug() << this->getFin().first << " , " << this->getFin().second << " >= " << limit;
-                    this->fin = interseccion;
+                if(fabs(this->getFin().first) >= 500 || fabs(this->getFin().second) >= 500) {
+                    nueva.setPuntos(this->getInicio(),interseccion);
                 }
         }
 
-        qDebug() << "AHORA ES " << this->getInicio() << " / " << this->getFin();
     }
 
     QPair<double,double> getPuntoInterseccion(Arista otra) {
