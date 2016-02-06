@@ -96,12 +96,18 @@ void Voronoi::calcular(GrafoHistorico * grafoDelaunay,NodoGrafo * listaTriangulo
                               punto2 = puntoaux;
                             }else{
                               //pendiente infinita en el mismo x
-                              QPair<double,double> puntoaux(punto1.first,(punto1.first * 70000.0)/70000.0);
-                              punto2 = puntoaux;
+                              if(circAdyacente.second < punto1.second){
+                                QPair<double,double> puntoaux(punto1.first,-70000.0);
+                                punto2 = puntoaux;
+                              }else if(circAdyacente.second < punto1.second){
+                                QPair<double,double> puntoaux(punto1.first,70000.0);
+                                punto2 = puntoaux;
+                              }
                             }
                             //punto2 = circunscripta->getCentro();
-                            this->agregarArista(punto1, punto2);
-
+                            if(punto1 != punto2){
+                                this->agregarArista(punto1, punto2);
+                            }
                         }else{
                             if(!adyacente->esVisitado(arista.first,arista.second)){
                                 triangulo->esVisitado(arista.first,arista.second);
@@ -109,11 +115,13 @@ void Voronoi::calcular(GrafoHistorico * grafoDelaunay,NodoGrafo * listaTriangulo
                                 punto1 = circunscripta->getCentro();
                                 circunscripta = adyacente->getCircunscripta();
                                 punto2 = circunscripta->getCentro();
-                                this->agregarArista(punto1, punto2);
+                                if(punto1 != punto2){
+                                    this->agregarArista(punto1, punto2);
 
-                                Arista arista;
-                                arista.setPuntos(punto1, punto2);
-                                this->aristasVoronoi.push_back(arista);
+                                    Arista arista;
+                                    arista.setPuntos(punto1, punto2);
+                                    this->aristasVoronoi.push_back(arista);
+                                 }
                               }
                            }
                       }else{qDebug() << "Voronoi: no pudo encontrar adyacente";}
