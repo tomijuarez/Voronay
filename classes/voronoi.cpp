@@ -82,27 +82,9 @@ void Voronoi::calcular(GrafoHistorico * grafoDelaunay,NodoGrafo * listaTriangulo
                             //como el triangulo no sera visitado por su adyacente ya que no pertenece a la triangulacion "visitamos" de nuevo su arista
                             triangulo->esVisitado(arista.first,arista.second);
                             circunscripta = triangulo->getCircunscripta();
-                            QPair<double,double> circAdyacente = adyacente->getCircunscripta()->getCentro();
                             punto1 = circunscripta->getCentro();
-                            double pend = this->pendiente(punto1,puntoMedioArista);
-                            if(circAdyacente.first > punto1.first){
-                              //hacia los positivos
-                              QPair<double,double> puntoaux(70000.0, (pend * (70000.0-punto1.first))+punto1.second);
-                              punto2 = puntoaux;
-                            }else if(circAdyacente.first < punto1.first){
-                              //hacia negativos
-                              QPair<double,double> puntoaux(-70000.0, (pend * (-70000.0-punto1.first))+punto1.second);
-                              punto2 = puntoaux;
-                            }else{
-                              //pendiente infinita en el mismo x
-                              if(circAdyacente.second < punto1.second){
-                                QPair<double,double> puntoaux(punto1.first,-70000.0);
-                                punto2 = puntoaux;
-                              }else if(circAdyacente.second < punto1.second){
-                                QPair<double,double> puntoaux(punto1.first,70000.0);
-                                punto2 = puntoaux;
-                              }
-                            }
+                            circunscripta = adyacente->getCircunscripta();
+                            punto2 = circunscripta->getCentro();
                             //punto2 = circunscripta->getCentro();
                             if(punto1 != punto2){
                                 this->agregarArista(punto1, punto2);
