@@ -80,7 +80,6 @@ void Voronoi::calcular(GrafoHistorico * grafoDelaunay,NodoGrafo * listaTriangulo
                         if(adyacente->contienePunto(p1) || adyacente->contienePunto(p2) || adyacente->contienePunto(p3)){
                             //el triangulo adyacente no pertenece a la triangulacion
                             //como el triangulo no sera visitado por su adyacente ya que no pertenece a la triangulacion "visitamos" de nuevo su arista
-                            qDebug() << "Adyacente externo";
                             triangulo->esVisitado(arista.first,arista.second);
                             circunscripta = triangulo->getCircunscripta();
                             QPair<double,double> circAdyacente = adyacente->getCircunscripta()->getCentro();
