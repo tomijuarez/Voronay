@@ -84,7 +84,7 @@ void Voronoi::calcular(GrafoHistorico * grafoDelaunay,NodoGrafo * listaTriangulo
                             circunscripta = triangulo->getCircunscripta();
                             QPair<double,double> circAdyacente = adyacente->getCircunscripta()->getCentro();
                             punto1 = circunscripta->getCentro();
-                            double pend = this->pendiente(circAdyacente,puntoMedioArista);
+                            double pend = this->pendiente(punto1,puntoMedioArista);
                             if(circAdyacente.first > punto1.first){
                               //hacia los positivos
                               QPair<double,double> puntoaux(70000.0, (pend * (70000.0-punto1.first))+punto1.second);
