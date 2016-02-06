@@ -132,7 +132,7 @@ void GrafoHistorico::limpiar(NodoGrafo * nodo){
         NodoGrafo * nodoAux;
         this->procesados.append(nodo);
         foreach(nodoAux,nodos){
-               this->limpiar(nodo);
+               this->limpiar(nodoAux);
         }
     }
 }
