@@ -20,12 +20,17 @@ public:
     Circunscripta * getCircunscripta();
     bool contienePunto(QPair<double, double> punto);
     void imprimir();
+    bool esVisitado(QPair<double,double> p1,QPair<double,double> p2);
     ~Triangulo();
 private:
     double area(QPair<double, double> punto1, QPair<double, double> punto2, QPair<double, double> punto3);
     QPair<double, double> punto1;
     QPair<double, double> punto2;
     QPair<double, double> punto3;
+    bool arista12 = false;
+    bool arista23 = false;
+    bool arista13 = false;
+    int cantVisitas = 0;
 };
 
 #endif // TRIANGULO_H

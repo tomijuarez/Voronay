@@ -86,5 +86,43 @@ void Triangulo::imprimir()
     qDebug() << this->punto3;
 }
 
+bool Triangulo::esVisitado(QPair<double,double> p1, QPair<double,double> p2){
+    qDebug() << "verificando:";
+    qDebug() << p1;
+    qDebug() << p2;
+    this->imprimir();
+    this->cantVisitas = this->cantVisitas + 1;
+    bool result = false;
+    if((p1 == this->punto1 && p2 == this->punto2) || (p1 == this->punto2 && p2 == this->punto1)){
+      if(this->arista12){
+          result = true;
+      }else{
+          this->arista12 = true;
+      }
+     }else if((p1 == this->punto2 && p2 == this->punto3) || (p1 == this->punto3 && p2 == this->punto2)){
+               if(this->arista23){
+                    result = true;
+               }else{
+                    this->arista23 = true;
+               }
+      }else if((p1 == this->punto1 && p2 == this->punto3) || (p1 == this->punto3 && p2 == this->punto1)){
+        if(this->arista13){
+             result = true;
+        }else{
+             this->arista13 = true;
+        }
+      }
+    if(this->cantVisitas == 6){
+        this->cantVisitas = 0;
+        this->arista12 = false;
+        this->arista13 = false;
+        this->arista23 = false;
+    }
+    qDebug() << "resultado:";
+    qDebug() << result;
+    return result;
+
+}
+
 Triangulo::~Triangulo() { }
 

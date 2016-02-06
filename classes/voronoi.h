@@ -8,6 +8,7 @@
 #include "triangulo.h"
 #include "arista.h"
 #include "circunscripta.h"
+#include "voronoicells.h"
 
 class Voronoi
 {
@@ -23,6 +24,7 @@ public:
 
 private:
     QPair<double, double> midPoint(QPair<QPair<double, double>, QPair<double,double> > arista);
+    double pendiente(QPair<double, double> p1, QPair<double,double> p2);
     void agregarArista(QPair<double,double>, QPair<double, double>);
 
 
@@ -32,6 +34,10 @@ private:
 
     QList<Arista> aristasVoronoi;
     QList<QPair<double, double> > centros;
+
+    QList<QPair<double,double> > centroides;
+
+    VoronoiCells celdas;
 };
 
 #endif // VORONOI_H
