@@ -82,8 +82,8 @@ void Voronoi::calcular(GrafoHistorico * grafoDelaunay,NodoGrafo * listaTriangulo
                             //como el triangulo no sera visitado por su adyacente ya que no pertenece a la triangulacion "visitamos" de nuevo su arista
                             triangulo->esVisitado(arista.first,arista.second);
                             circunscripta = triangulo->getCircunscripta();
-                            QPair<double,double> circAdyacente = adyacente->getCircunscripta()->getCentro();
                             punto1 = circunscripta->getCentro();
+<<<<<<< HEAD
                             double pend = this->pendiente(punto1,puntoMedioArista);
                             if(circAdyacente.first > punto1.first){
                               //hacia los positivos
@@ -115,6 +115,10 @@ void Voronoi::calcular(GrafoHistorico * grafoDelaunay,NodoGrafo * listaTriangulo
                                 punto2 = puntoaux;
                               }
                             }
+=======
+                            circunscripta = adyacente->getCircunscripta();
+                            punto2 = circunscripta->getCentro();
+>>>>>>> origin/master
                             //punto2 = circunscripta->getCentro();
                             if(punto1 != punto2){
                                 this->agregarArista(punto1, punto2);
