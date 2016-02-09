@@ -87,19 +87,31 @@ void Voronoi::calcular(GrafoHistorico * grafoDelaunay,NodoGrafo * listaTriangulo
                             double pend = this->pendiente(punto1,puntoMedioArista);
                             if(circAdyacente.first > punto1.first){
                               //hacia los positivos
-                              QPair<double,double> puntoaux(70000.0, (pend * (70000.0-punto1.first))+punto1.second);
-                              punto2 = puntoaux;
+                              double x = fabs(7000.0 * punto1.first);
+                              if(pend != 0.0){
+                                QPair<double,double> puntoaux(x, (pend * (x-punto1.first))+punto1.second);
+                                punto2 = puntoaux;
+                              }else{
+
+                              }
                             }else if(circAdyacente.first < punto1.first){
                               //hacia negativos
-                              QPair<double,double> puntoaux(-70000.0, (pend * (-70000.0-punto1.first))+punto1.second);
-                              punto2 = puntoaux;
+                              if(pend != 0.0){
+                              double x = - fabs(7000.0 * punto1.first);
+                                QPair<double,double> puntoaux(x, (pend * (x-punto1.first))+punto1.second);
+                                punto2 = puntoaux;
+                              }else{
+
+                              }
                             }else{
                               //pendiente infinita en el mismo x
                               if(circAdyacente.second < punto1.second){
-                                QPair<double,double> puntoaux(punto1.first,-70000.0);
+                                double y =  - fabs(7000 * punto1.second);
+                                QPair<double,double> puntoaux(punto1.first, y);
                                 punto2 = puntoaux;
-                              }else if(circAdyacente.second < punto1.second){
-                                QPair<double,double> puntoaux(punto1.first,70000.0);
+                              }else if(circAdyacente.second > punto1.second){
+                                double y = fabs(7000 * punto1.second);
+                                QPair<double,double> puntoaux(punto1.first,y);
                                 punto2 = puntoaux;
                               }
                             }
@@ -116,10 +128,6 @@ void Voronoi::calcular(GrafoHistorico * grafoDelaunay,NodoGrafo * listaTriangulo
                                 punto2 = circunscripta->getCentro();
                                 if(punto1 != punto2){
                                     this->agregarArista(punto1, punto2);
-
-                                    Arista arista;
-                                    arista.setPuntos(punto1, punto2);
-                                    this->aristasVoronoi.push_back(arista);
                                  }
                               }
                            }
@@ -133,11 +141,6 @@ void Voronoi::calcular(GrafoHistorico * grafoDelaunay,NodoGrafo * listaTriangulo
 
 void Voronoi::clear() {
     this->aristas.clear();
-}
-
-QList<QPair<double, double> > Voronoi::getCentroides() {
-    this->centroides = this->celdas.centroides(this->circuncentros, this->aristasVoronoi);
-    return this->centroides;
 }
 
 Voronoi::~Voronoi() {

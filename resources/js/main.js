@@ -15,11 +15,11 @@ Drawer.prototype.oneDecimal = function(number){
 Drawer.prototype.drawAxis = function(){
     var context = this.getContext("2d");
     var fontSize = Math.floor(25/this.zoomTransformFactor);
-    context.font= fontSize.toString() + "px Georgia";
+    context.font= fontSize.toString() + "px Arial";
     context.textAlign = "center";
     context.fillText(0,this.translateHorizontal(10),this.translateVertical(-5));
     fontSize = Math.floor(25/this.zoomTransformFactor);
-    context.font= fontSize.toString() + "px Georgia";
+    context.font= fontSize.toString() + "px Arial";
     this.drawLine(this.translateHorizontal(0),this.translateVertical(this.axisLimit),this.translateHorizontal(0),this.translateVertical(-this.axisLimit));
     this.drawLine(this.translateHorizontal(this.axisLimit),this.translateVertical(0),this.translateHorizontal(-this.axisLimit),this.translateVertical(0));
     var i;

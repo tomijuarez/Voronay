@@ -159,7 +159,7 @@ Rectangle{
                                anchors.centerIn: parent
                                font.pointSize: 14
                                text:"000"
-                               validator: DoubleValidator { decimals:2}
+                               validator: DoubleValidator { decimals:1}
                            }
                        }
 
@@ -175,7 +175,7 @@ Rectangle{
                                anchors.centerIn: parent
                                font.pointSize: 14
                                text:"000"
-                               validator: DoubleValidator { decimals:2}
+                               validator: DoubleValidator { decimals:1}
                            }
                        }
                     }
@@ -423,7 +423,6 @@ Rectangle{
             smooth: true;
             Component.onCompleted: {
                 Main.Drawer.setCanvas(this);
-
             }
 
             onCanvasSizeChanged: {

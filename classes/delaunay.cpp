@@ -93,7 +93,7 @@ void Delaunay::insertarVertice(QPair<double, double> vertice) {
 void Delaunay::generarTriangulos( NodoGrafo * nodo, QPair<double, double> vertice ) {
     //qDebug() << "Delaunay: El punto cayo en";
     //nodo->getTriangulo()->imprimir();
-    qDebug() << "Generando 3 triangulos";
+    //qDebug() << "Generando 3 triangulos";
     //Partimos el triangulo en 3 usando el nuevo vertice
     QList<QPair<double,double> > vertices = nodo->getTriangulo()->getVertices();
     Triangulo * t1 = new Triangulo(vertices.at(0),vertices.at(1),vertice);
