@@ -69,7 +69,6 @@ void DataManager::reset(){
     this->points.clear();
     this->circuncentros.clear();
     this->circunscriptas.clear();
-    this->centroides.clear();
     this->triangulation.clear();
     this->delaunay.resetear();
     this->aristas.clear();
@@ -111,17 +110,10 @@ void DataManager::draw(){
         }
         if(this->voronoiActivo){
             this->drawLines();
-            this->drawCenterOfMass();
         }
     }
 }
 
-void DataManager::drawCenterOfMass() {
-    QPair<double,double> point;
-    foreach(point,this->centroides) {
-        this->drawPoint(point.first,point.second);
-    }
-}
 
 void DataManager::drawPoints() {
     QPair<double, double> point;

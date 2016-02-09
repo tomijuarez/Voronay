@@ -42,7 +42,6 @@ class DataManager : public QObject {
         void drawCircuncentros();
         void drawCircunscriptas();
 
-        QList<QPair<double,double> > centroides;
         Delaunay delaunay;
         Voronoi voronoi;
         Triangulo * externTriangle;

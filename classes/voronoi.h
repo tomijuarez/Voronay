@@ -8,7 +8,6 @@
 #include "triangulo.h"
 #include "arista.h"
 #include "circunscripta.h"
-#include "voronoicells.h"
 
 class Voronoi
 {
@@ -34,10 +33,6 @@ private:
 
     QList<Arista> aristasVoronoi;
     QList<QPair<double, double> > centros;
-
-    QList<QPair<double,double> > centroides;
-
-    VoronoiCells celdas;
 };
 
 #endif // VORONOI_H

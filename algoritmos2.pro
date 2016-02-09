@@ -10,8 +10,7 @@ SOURCES += main.cpp \
     classes/triangulo.cpp \
     classes/voronoi.cpp \
     classes/grafohistorico.cpp \
-    classes/nodografo.cpp \
-    classes/arista.cpp
+    classes/nodografo.cpp
 
 
 RESOURCES += qml.qrc
@@ -29,6 +28,9 @@ HEADERS += \
     classes/triangulo.h \
     classes/voronoi.h \
     classes/grafohistorico.h \
-    classes/nodografo.h \
-    classes/arista.h
+    classes/nodografo.h
 
+RC_ICONS = icon.ico
+
+DISTFILES += \
+    icon.ico

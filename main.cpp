@@ -2,7 +2,6 @@
 #include <QDebug>
 #include <QObject>
 #include <QGuiApplication>
-#include <QQuickView>
 #include <QQuickItem>
 #include <QQmlContext>
 #include "classes/datamanager.h"
